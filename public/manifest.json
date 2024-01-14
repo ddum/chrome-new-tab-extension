@@ -7,7 +7,9 @@
     "192": "img/icons/192x192.png"
   },
   "action": {
-    "default_title": "Открыть новую вкладку",
-    "default_popup": "index.html"
+    "default_title": "Открыть новую вкладку"
+  },
+  "chrome_url_overrides" : {
+    "newtab": "index.html"
   }
 }
