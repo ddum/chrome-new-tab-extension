@@ -8,6 +8,10 @@
 :root {
   --color-background: var(--c-black);
   --color-text: var(--c-white);
+
+  --color-icon: var(--c-white);
+  --size-icon-small: 18px;
+  --size-icon-big: 24px;
 }
 
 *,
