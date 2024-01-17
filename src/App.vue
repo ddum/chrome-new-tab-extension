@@ -6,7 +6,9 @@
     </div>
     <div class="footer">
       <div class="layout">
-        <div class="layout__left"></div>
+        <div class="layout__left">
+          <SettingsButton />
+        </div>
         <div class="layout__right">
           <BackgroundRefresh />
         </div>
@@ -18,6 +20,10 @@
 <script lang="ts" setup>
 import TimeString from '@/components/TimeString.vue'
 import BackgroundRefresh from '@/components/BackgroundRefresh.vue'
+import SettingsButton from '@/components/SettingsButton.vue'
+
+import FloatingVue from 'floating-vue'
+FloatingVue.options.overflowPadding = 12
 
 import { useBackgroundStore } from '@/stores/background'
 

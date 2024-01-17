@@ -10,7 +10,7 @@ import { defineProps } from 'vue'
 const props = defineProps({
   rotate: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 </script>

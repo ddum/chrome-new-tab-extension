@@ -1,5 +1,5 @@
 <template>
-  <IconButton @click="randomBackground" title="Обновить фон">
+  <IconButton :rotate="true" @click="randomBackground" v-tooltip="'Обновить фон'">
     <IconBase size="big">
       <IconRefresh />
     </IconBase>
@@ -7,6 +7,8 @@
 </template>
 
 <script lang="ts" setup>
+import { vTooltip } from 'floating-vue'
+
 import { randomBackground } from '@/scripts/background'
 
 import IconRefresh from '@/assets/img/icons/refresh.svg?component'
