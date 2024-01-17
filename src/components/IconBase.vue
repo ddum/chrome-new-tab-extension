@@ -18,7 +18,7 @@ const props = defineProps({
 })
 </script>
 
-<style>
+<style scoped>
 .icon {
   display: inline-block;
 }
@@ -31,7 +31,7 @@ const props = defineProps({
   height: var(--size-icon-big);
 }
 
-.icon svg {
+.icon::v-deep svg {
   fill: var(--color-icon);
   height: 100%;
   width: 100%;

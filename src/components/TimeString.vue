@@ -20,7 +20,7 @@ setInterval(() => {
 }, 1000 * 30)
 </script>
 
-<style>
+<style scoped>
 .time {
   font-size: 180px;
   font-weight: bold;

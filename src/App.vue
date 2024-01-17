@@ -30,7 +30,7 @@ import { useBackgroundStore } from '@/stores/background'
 const backgroundStore = useBackgroundStore()
 </script>
 
-<style>
+<style scoped>
 .wrapper {
   min-height: 100vh;
   display: flex;
