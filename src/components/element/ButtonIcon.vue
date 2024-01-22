@@ -5,13 +5,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+interface Props {
+  rotate?: boolean
+}
 
-const props = defineProps({
-  rotate: {
-    type: Boolean,
-    default: false
-  }
+const props = withDefaults(defineProps<Props>(), {
+  rotate: false
 })
 </script>
 

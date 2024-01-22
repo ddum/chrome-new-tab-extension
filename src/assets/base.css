@@ -6,12 +6,35 @@
 
 /* semantic color variables for this project */
 :root {
+  --font-size-base: 15px;
   --color-background: var(--c-black);
   --color-text: var(--c-white);
 
   --color-icon: var(--c-white);
-  --size-icon-small: 18px;
-  --size-icon-big: 24px;
+  --size-icon-s1: 24px;
+  --size-icon-s2: 18px;
+  --size-icon-s3: 15px;
+  --size-icon-s4: 12px;
+
+  --element-border-radius: 6px;
+  --element-padding: 8px 15px;
+  --element-font-size: 13px;
+
+  --element-input-border-color: #7d7d7d;
+
+  --element-button-background: #409eff;
+  --element-button-background-hover: #3f97f0;
+  --element-button-border-color: transparent;
+  --element-button-color: var(--c-white);
+
+  --element-tag--bg-color: #ecf5ff;
+  --element-tag--border-color: #d9ecff;
+  --element-tag--text-color: #409eff;
+  --element-tag-border-radius: 4px;
+
+  --settings-border-color: #e9e9e9;
+  --settings-text-color: #7d7d7d;
+  --settings-text-color-hover: var(--c-black);
 }
 
 *,
@@ -40,7 +63,7 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: var(--font-size-base);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

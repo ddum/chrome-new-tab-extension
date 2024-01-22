@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :style="{ backgroundImage: `url(${backgroundStore.backgroundUrl})` }">
+  <div class="wrapper" :style="{ backgroundImage: `url(${appStore.backgroundUrl})` }">
     <div class="header"></div>
     <div class="content">
       <TimeString />
@@ -25,9 +25,9 @@ import SettingsButton from '@/components/SettingsButton.vue'
 import FloatingVue from 'floating-vue'
 FloatingVue.options.overflowPadding = 12
 
-import { useBackgroundStore } from '@/stores/background'
+import { useAppStore } from '@/stores'
 
-const backgroundStore = useBackgroundStore()
+const appStore = useAppStore()
 </script>
 
 <style scoped>
