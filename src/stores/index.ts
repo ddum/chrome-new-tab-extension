@@ -32,6 +32,14 @@ export const useAppStore = defineStore('app', () => {
     [`${codeLinks}`]: linksValue
   })
 
+  function appSetValue(contents: string) {
+    valueApp.value = JSON.parse(contents)
+    for (const category of categoryItems) {
+      const code = category.code as keyof Types.AppValue
+      save(valueApp.value[code], code)
+    }
+  }
+
   function setValue<C extends keyof Types.AppValue, K extends keyof Types.AppValue[C]>(
     category: C,
     code: K,
@@ -50,6 +58,8 @@ export const useAppStore = defineStore('app', () => {
 
   return {
     categoryItems,
+    appValueString: computed(() => JSON.stringify(valueApp.value)),
+    appSetValue,
     // Background
     setBackgroundUrl: (url: string) => setValue(codeBackground, 'url', url),
     backgroundUrl: computed(() => getValue(codeBackground, 'url')),
