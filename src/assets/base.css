@@ -20,7 +20,9 @@
   --element-padding: 8px 15px;
   --element-font-size: 13px;
 
-  --element-input-border-color: #7d7d7d;
+  --element-input-border-color: #e9e9e9;
+
+  --element-table-border-color: #e9e9e9;
 
   --element-button-background: #409eff;
   --element-button-background-hover: #3f97f0;

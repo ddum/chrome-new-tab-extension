@@ -1,8 +1,15 @@
 <template>
   <div class="wrapper" :style="{ backgroundImage: `url(${appStore.backgroundUrl})` }">
-    <div class="header"></div>
-    <div class="content">
+    <div class="center">
       <TimeString />
+    </div>
+    <div class="header">
+      <div class="layout">
+        <div class="layout__left">
+          <LinksList />
+        </div>
+        <div class="layout__right"></div>
+      </div>
     </div>
     <div class="footer">
       <div class="layout">
@@ -21,6 +28,7 @@
 import TimeString from '@/components/TimeString.vue'
 import BackgroundRefresh from '@/components/BackgroundRefresh.vue'
 import SettingsButton from '@/components/SettingsButton.vue'
+import LinksList from '@/components/LinksList.vue'
 
 import FloatingVue from 'floating-vue'
 FloatingVue.options.overflowPadding = 12
@@ -35,6 +43,7 @@ const appStore = useAppStore()
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 20px;
   background-color: transparent;
   background-position: center center;
@@ -61,12 +70,12 @@ const appStore = useAppStore()
   transition: opacity 0.3s ease-out;
 }
 
-.content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.center {
   z-index: 1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 .header {
   z-index: 1;

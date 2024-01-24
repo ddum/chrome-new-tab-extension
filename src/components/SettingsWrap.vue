@@ -47,6 +47,19 @@ watchEffect(() => {
 .settings__content {
   padding: 20px 25px;
   flex: 1;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.settings__content::-webkit-scrollbar {
+  width: 6px;
+}
+.settings__content::-webkit-scrollbar-thumb {
+  background-color: #0003;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.settings__content::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
 </style>
-@/stores

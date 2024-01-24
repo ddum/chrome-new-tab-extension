@@ -45,4 +45,3 @@ const appStore = useAppStore()
   color: var(--settings-text-color-hover);
 }
 </style>
-@/stores

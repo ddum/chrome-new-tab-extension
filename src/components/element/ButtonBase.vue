@@ -8,7 +8,7 @@
 
 <style scoped>
 .button {
-  display: flex;
+  display: inline-flex;
   background-color: var(--element-button-background);
   color: var(--element-button-color);
   border: 1px solid var(--element-button-border-color);

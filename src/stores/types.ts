@@ -8,6 +8,15 @@ export interface BackgroundValue {
   tags: string[]
 }
 
+export interface LinkItem {
+  url: string
+  title: string
+}
+export interface LinksValue {
+  items: LinkItem[]
+}
+
 export interface AppValue {
   background: BackgroundValue
+  links: LinksValue
 }

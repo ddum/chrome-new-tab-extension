@@ -17,9 +17,9 @@
 import { ref } from 'vue'
 import { useAppStore } from '@/stores'
 
-import InputBase from './element/InputBase.vue'
-import ButtonBase from './element/ButtonBase.vue'
-import TagBase from './element/TagBase.vue'
+import InputBase from '@/components/element/InputBase.vue'
+import ButtonBase from '@/components/element/ButtonBase.vue'
+import TagBase from '@/components/element/TagBase.vue'
 
 const tagInput = ref('')
 

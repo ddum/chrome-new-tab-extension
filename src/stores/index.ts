@@ -4,22 +4,32 @@ import { ref, computed } from 'vue'
 import type * as Types from '@/stores/types'
 import { get, save } from '@/scripts/storage'
 
-const categoryItems: Types.CategoryItem[] = [
-  {
-    title: 'Фон',
-    code: 'background'
-  }
-]
-
-const storageKeyBackground = 'background'
-const backgroundValue: Types.BackgroundValue = get<Types.BackgroundValue>(storageKeyBackground, {
+const codeBackground = 'background'
+const backgroundValue: Types.BackgroundValue = get<Types.BackgroundValue>(codeBackground, {
   url: '',
   tags: []
 })
 
+const codeLinks = 'links'
+const linksValue: Types.LinksValue = get<Types.LinksValue>(codeLinks, {
+  items: []
+})
+
+const categoryItems: Types.CategoryItem[] = [
+  {
+    title: 'Фон',
+    code: codeBackground
+  },
+  {
+    title: 'Ссылки',
+    code: codeLinks
+  }
+]
+
 export const useAppStore = defineStore('app', () => {
   const valueApp = ref<Types.AppValue>({
-    background: backgroundValue
+    [`${codeBackground}`]: backgroundValue,
+    [`${codeLinks}`]: linksValue
   })
 
   function setValue<C extends keyof Types.AppValue, K extends keyof Types.AppValue[C]>(
@@ -40,9 +50,13 @@ export const useAppStore = defineStore('app', () => {
 
   return {
     categoryItems,
-    setBackgroundUrl: (url: string) => setValue('background', 'url', url),
-    backgroundUrl: computed(() => getValue('background', 'url')),
-    setBackgroundTags: (tags: string[]) => setValue('background', 'tags', tags),
-    backgroundTags: computed(() => getValue('background', 'tags'))
+    // Background
+    setBackgroundUrl: (url: string) => setValue(codeBackground, 'url', url),
+    backgroundUrl: computed(() => getValue(codeBackground, 'url')),
+    setBackgroundTags: (tags: string[]) => setValue(codeBackground, 'tags', tags),
+    backgroundTags: computed(() => getValue(codeBackground, 'tags')),
+    // Links
+    setLinks: (links: Types.LinkItem[]) => setValue(codeLinks, 'items', links),
+    links: computed(() => getValue(codeLinks, 'items'))
   }
 })
