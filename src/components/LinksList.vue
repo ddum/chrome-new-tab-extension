@@ -1,7 +1,7 @@
 <template>
   <div class="links">
     <div class="links__item" v-for="link in appStore.links" :key="link.url">
-      <a :href="link.url" class="links__link" target="_blank">
+      <a :href="link.url" class="links__link">
         <div class="links__favicon"><LinkFavicon :domain="link.url" /></div>
         <div class="links__title">
           {{ link.title }}
