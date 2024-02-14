@@ -4,28 +4,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const timeString = ref('')
-const dateString = ref('')
-function setTime() {
-  let date = new Date()
-  let hours = date.getHours()
-  let minutes = date.getMinutes()
-
-  timeString.value = `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`
-  dateString.value = date.toLocaleDateString('ru-RU', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-}
-
-setTime()
-setInterval(() => {
-  setTime()
-}, 1000 * 30)
+import useDateTime from '@/composables/useDateTime'
+const { timeString, dateString } = useDateTime()
 </script>
 
 <style scoped>
