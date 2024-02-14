@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { useAppStore } from '@/stores'
-import { saveData, writeData } from '@/scripts/fileSettings'
+import useFileSystem from '@/composables/useFileSystem'
 
 import ButtonBase from '@/components/element/ButtonBase.vue'
 import IconBase from '@/components/element/IconBase.vue'
@@ -41,16 +41,34 @@ const props = defineProps<{
 }>()
 
 const appStore = useAppStore()
+const { saveFile, openFile } = useFileSystem()
 
 async function importData() {
-  const data = await writeData()
+  const data = await openFile({
+    types: [
+      {
+        accept: {
+          'text/plain': ['.json']
+        }
+      }
+    ]
+  })
   if (data) {
     appStore.appSetValue(data)
   }
 }
 
 async function exportData() {
-  await saveData(appStore.appValueString)
+  await saveFile(appStore.appValueString, {
+    suggestedName: 'new_tab_settings',
+    types: [
+      {
+        accept: {
+          'text/plain': ['.json']
+        }
+      }
+    ]
+  })
 }
 </script>
 

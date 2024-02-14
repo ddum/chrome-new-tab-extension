@@ -1,20 +1,11 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 
 import type * as Types from '@/stores/types'
-import { get, save } from '@/scripts/storage'
+import useStorage from '@/composables/useStorage'
 
 const codeBackground = 'background'
-const backgroundValue: Types.BackgroundValue = get<Types.BackgroundValue>(codeBackground, {
-  url: '',
-  tags: []
-})
-
 const codeLinks = 'links'
-const linksValue: Types.LinksValue = get<Types.LinksValue>(codeLinks, {
-  items: []
-})
-
 const categoryItems: Types.CategoryItem[] = [
   {
     title: 'Фон',
@@ -27,46 +18,46 @@ const categoryItems: Types.CategoryItem[] = [
 ]
 
 export const useAppStore = defineStore('app', () => {
-  const valueApp = ref<Types.AppValue>({
-    [`${codeBackground}`]: backgroundValue,
-    [`${codeLinks}`]: linksValue
+  const backgroundValue = useStorage<Types.BackgroundValue>(codeBackground, {
+    url: '',
+    tags: []
+  })
+  const linksValue = useStorage<Types.LinksValue>(codeLinks, {
+    items: []
   })
 
   function appSetValue(contents: string) {
-    valueApp.value = JSON.parse(contents)
-    for (const category of categoryItems) {
-      const code = category.code as keyof Types.AppValue
-      save(valueApp.value[code], code)
+    const valueApp = JSON.parse(contents)
+    if (valueApp[codeBackground]) {
+      backgroundValue.value = valueApp[codeBackground] as Types.BackgroundValue
     }
-  }
-
-  function setValue<C extends keyof Types.AppValue, K extends keyof Types.AppValue[C]>(
-    category: C,
-    code: K,
-    value: Types.AppValue[C][K]
-  ): void {
-    valueApp.value[category][code] = value
-    save(valueApp.value[category], category)
-  }
-
-  function getValue<C extends keyof Types.AppValue, K extends keyof Types.AppValue[C]>(
-    category: C,
-    code: K
-  ): Types.AppValue[C][K] {
-    return valueApp.value[category][code]
+    if (valueApp[codeLinks]) {
+      linksValue.value = valueApp[codeLinks] as Types.LinksValue
+    }
   }
 
   return {
     categoryItems,
-    appValueString: computed(() => JSON.stringify(valueApp.value)),
+    appValueString: computed(() =>
+      JSON.stringify({
+        [codeBackground]: backgroundValue.value,
+        [codeLinks]: linksValue.value
+      })
+    ),
     appSetValue,
     // Background
-    setBackgroundUrl: (url: string) => setValue(codeBackground, 'url', url),
-    backgroundUrl: computed(() => getValue(codeBackground, 'url')),
-    setBackgroundTags: (tags: string[]) => setValue(codeBackground, 'tags', tags),
-    backgroundTags: computed(() => getValue(codeBackground, 'tags')),
+    backgroundUrl: computed((): Types.BackgroundValue['url'] => backgroundValue.value.url),
+    backgroundTags: computed((): Types.BackgroundValue['tags'] => backgroundValue.value.tags),
+    setBackgroundUrl: (url: string) => {
+      backgroundValue.value = Object.assign(backgroundValue.value, { url })
+    },
+    setBackgroundTags: (tags: string[]) => {
+      backgroundValue.value = Object.assign(backgroundValue.value, { tags })
+    },
     // Links
-    setLinks: (links: Types.LinkItem[]) => setValue(codeLinks, 'items', links),
-    links: computed(() => getValue(codeLinks, 'items'))
+    setLinks: (links: Types.LinkItem[]) => {
+      linksValue.value = Object.assign(linksValue.value, { items: links })
+    },
+    links: computed((): Types.LinksValue['items'] => linksValue.value.items)
   }
 })

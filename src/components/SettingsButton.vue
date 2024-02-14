@@ -1,6 +1,6 @@
 <template>
   <Dropdown>
-    <ButtonIcon ref="popcorn" :rotate="true" v-tooltip="'Открыть настройки'">
+    <ButtonIcon ref="popcorn" v-tooltip="'Открыть настройки'">
       <IconBase>
         <IconSettings />
       </IconBase>
