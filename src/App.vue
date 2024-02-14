@@ -6,7 +6,7 @@
     <div class="header">
       <div class="layout">
         <div class="layout__left">
-          <LinksList />
+          <LinksList :links="appStore.links" />
         </div>
         <div class="layout__right"></div>
       </div>

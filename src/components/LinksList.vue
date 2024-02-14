@@ -1,6 +1,6 @@
 <template>
   <div class="links">
-    <div class="links__item" v-for="link in appStore.links" :key="link.url">
+    <div class="links__item" v-for="link in props.links" :key="link.url">
       <a :href="link.url" class="links__link">
         <div class="links__favicon"><LinkFavicon :domain="link.url" /></div>
         <div class="links__title">
@@ -12,10 +12,18 @@
 </template>
 
 <script lang="ts" setup>
-import LinkFavicon from '@/components/element/LinkFavicon.vue'
+import { defineProps, withDefaults } from 'vue'
 
-import { useAppStore } from '@/stores'
-const appStore = useAppStore()
+import LinkFavicon from '@/components/element/LinkFavicon.vue'
+import type { LinkItem } from '@/stores/types'
+
+interface Props {
+  links: LinkItem[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  links: () => []
+})
 </script>
 
 <style scoped>
