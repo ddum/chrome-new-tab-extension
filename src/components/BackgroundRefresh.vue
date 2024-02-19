@@ -20,7 +20,10 @@ const appStore = useAppStore()
 const { imgUrl, isLoading, random } = useBackground()
 
 const randomBackground = async () => {
-  await random({ tags: appStore.backgroundTags })
+  await random({
+    tags: appStore.backgroundTags,
+    size: [window.innerWidth, window.innerHeight]
+  })
   appStore.setBackgroundUrl(imgUrl.value)
 }
 </script>
