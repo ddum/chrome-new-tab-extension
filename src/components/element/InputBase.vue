@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 interface Props {
   modelValue?: string
   type?: string
@@ -20,12 +20,19 @@ const emit = defineEmits<{
 }>()
 
 const inputValue = ref('')
-watchEffect(() => {
+
+watch(inputValue, () => {
   emit('update:model-value', inputValue.value)
 })
-watchEffect(() => {
-  inputValue.value = props.modelValue
-})
+watch(
+  () => props.modelValue,
+  () => {
+    inputValue.value = props.modelValue
+  },
+  {
+    immediate: true
+  }
+)
 </script>
 
 <style scoped>

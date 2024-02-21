@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, withDefaults } from 'vue'
+import { withDefaults } from 'vue'
 
 import LinkFavicon from '@/components/element/LinkFavicon.vue'
 import type { LinkItem } from '@/stores/types'
