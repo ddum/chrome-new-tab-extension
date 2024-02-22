@@ -13,10 +13,10 @@ export function useBackground() {
     isLoading.value = true
     let urlImage = `https://source.unsplash.com/random/`
 
-    if (options.size) {
+    if (options.size && options.size.length > 0) {
       urlImage += `${options.size[0]}x${options.size[1]}/`
     }
-    if (options.tags) {
+    if (options.tags && options.tags.length > 0) {
       urlImage += `?${options.tags.join(',')}`
     }
 
