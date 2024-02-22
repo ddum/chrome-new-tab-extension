@@ -3,36 +3,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
 interface Props {
-  modelValue?: string
   type?: string
   placeholder?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: '',
   type: 'text',
   placeholder: ''
 })
-const emit = defineEmits<{
-  'update:model-value': [value: string]
-}>()
 
-const inputValue = ref('')
-
-watch(inputValue, () => {
-  emit('update:model-value', inputValue.value)
-})
-watch(
-  () => props.modelValue,
-  () => {
-    inputValue.value = props.modelValue
-  },
-  {
-    immediate: true
-  }
-)
+const inputValue = defineModel<string>({ type: String })
 </script>
 
 <style scoped>

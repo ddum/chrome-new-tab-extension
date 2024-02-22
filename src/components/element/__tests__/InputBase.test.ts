@@ -26,5 +26,5 @@ test('InputBase ввод текста', async () => {
   await input.setValue('Test Text')
   expect((input.element as HTMLInputElement).value).toBe('Test Text')
 
-  expect(wrapper.emitted()).toHaveProperty('update:model-value')
+  expect(wrapper.emitted()).toHaveProperty('update:modelValue')
 })
