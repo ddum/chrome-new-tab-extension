@@ -1,7 +1,6 @@
 import { test, expect, vi } from 'vitest'
 import { useBackground } from '../useBackground'
-
-global.fetch = vi.fn().mockResolvedValue({ url: 'testURL' })
+import { flushPromises } from '@vue/test-utils'
 
 const { imgUrl, isLoading, random } = useBackground()
 
@@ -13,10 +12,17 @@ test('isLoading default', () => {
 })
 
 test('random image', async () => {
-  await random({ tags: ['a', 'b'], size: [100, 100] })
+  global.fetch = vi.fn().mockResolvedValue({ url: 'testURL' })
+
+  expect(isLoading.value).toBe(false)
+
+  random({ tags: ['a', 'b'], size: [100, 100] })
+
+  expect(isLoading.value).toBe(true)
+
+  await flushPromises()
 
   expect(fetch).toHaveBeenCalledWith('https://source.unsplash.com/random/100x100/?a,b')
-
   expect(imgUrl.value).toBe('testURL')
   expect(isLoading.value).toBe(false)
 })
