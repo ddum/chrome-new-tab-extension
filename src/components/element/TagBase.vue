@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'delete'): void
+  delete: []
 }>()
 </script>
 

@@ -33,7 +33,7 @@ import IconImport from '@/assets/img/icons/import.svg?component'
 import IconExport from '@/assets/img/icons/export.svg?component'
 
 const emit = defineEmits<{
-  (e: 'set-menu-item', code: string): void
+  'set-menu-item': [code: string]
 }>()
 
 const props = defineProps<{

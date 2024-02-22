@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: ''
 })
 const emit = defineEmits<{
-  (e: 'update:model-value', value: string): void
+  'update:model-value': [value: string]
 }>()
 
 const inputValue = ref('')
