@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <form class="form" @submit.prevent="addLink">
     <div class="form__row">
       <div class="form__row-title">Ссылка</div>
       <InputBase v-model="link" />
@@ -9,9 +9,9 @@
       <InputBase v-model="title" />
     </div>
     <div class="form__row">
-      <ButtonBase @click="addLink">Добавить</ButtonBase>
+      <ButtonBase type="submit">Добавить</ButtonBase>
     </div>
-  </div>
+  </form>
   <div class="links">
     <Table>
       <TableRow v-for="(link, index) in appStore.links" :key="link.url">

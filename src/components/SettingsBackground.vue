@@ -1,8 +1,8 @@
 <template>
-  <div class="form">
+  <form class="form" @submit.prevent="addTag">
     <InputBase placeholder="Тег изображения" v-model="tagInput" />
-    <ButtonBase class="form__button" @click="addTag">Добавить</ButtonBase>
-  </div>
+    <ButtonBase type="submit" class="form__button">Добавить</ButtonBase>
+  </form>
   <div class="tags">
     <TagBase
       v-for="(tag, index) in appStore.backgroundTags"
