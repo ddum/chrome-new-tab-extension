@@ -1,13 +1,17 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { describe, test, expect, beforeEach } from 'vitest'
+import { describe, test, expect, beforeEach, afterEach } from 'vitest'
 
 import { useAppStore } from '../index'
 
-describe('App Store', () => {
-  beforeEach(() => {
-    setActivePinia(createPinia())
-  })
+beforeEach(() => {
+  setActivePinia(createPinia())
+})
 
+afterEach(() => {
+  localStorage.clear()
+})
+
+describe('appStore - общее значение', () => {
   test('categoryItems', () => {
     const appStore = useAppStore()
     expect(Array.isArray(appStore.categoryItems)).toBe(true)
@@ -29,19 +33,43 @@ describe('App Store', () => {
     appStore.appSetValue(JSON.stringify(value))
     expect(appStore.appValueString).toBe(JSON.stringify(value))
   })
+})
 
+describe('appStore - background', () => {
   test('url background', () => {
     const appStore = useAppStore()
     appStore.setBackgroundUrl('test')
     expect(appStore.backgroundUrl).toBe('test')
   })
 
-  test('tags background', () => {
+  test('tags add', () => {
     const appStore = useAppStore()
-    appStore.setBackgroundTags(['a', 'b'])
+    expect(appStore.backgroundTags).toEqual([])
+    appStore.addTag('a')
+    expect(appStore.backgroundTags).toEqual(['a'])
+    appStore.addTag('b')
     expect(appStore.backgroundTags).toEqual(['a', 'b'])
   })
 
+  test('tags delete', () => {
+    const value = {
+      background: {
+        url: 'test',
+        tags: ['a', 'b', 'c']
+      },
+      links: {
+        items: []
+      }
+    }
+
+    const appStore = useAppStore()
+    appStore.appSetValue(JSON.stringify(value))
+    appStore.deleteTag('b')
+    expect(appStore.backgroundTags).toEqual(['a', 'c'])
+  })
+})
+
+describe('appStore - links', () => {
   test('links', () => {
     const appStore = useAppStore()
     appStore.setLinks(['a', 'b'])

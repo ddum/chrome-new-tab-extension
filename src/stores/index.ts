@@ -18,13 +18,16 @@ const categoryItems: Types.CategoryItem[] = [
 ]
 
 export const useAppStore = defineStore('app', () => {
-  const backgroundValue = useStorage<Types.BackgroundValue>(codeBackground, {
+  const defaultBackgroundValue: Types.BackgroundValue = {
     url: '',
     tags: []
-  })
-  const linksValue = useStorage<Types.LinksValue>(codeLinks, {
+  }
+  const defaultLinksValue: Types.LinksValue = {
     items: []
-  })
+  }
+
+  const backgroundValue = useStorage<Types.BackgroundValue>(codeBackground, defaultBackgroundValue)
+  const linksValue = useStorage<Types.LinksValue>(codeLinks, defaultLinksValue)
 
   function appSetValue(contents: string) {
     const valueApp = JSON.parse(contents)
@@ -51,7 +54,14 @@ export const useAppStore = defineStore('app', () => {
     setBackgroundUrl: (url: string) => {
       backgroundValue.value = Object.assign(backgroundValue.value, { url })
     },
-    setBackgroundTags: (tags: string[]) => {
+    addTag: (value: string) => {
+      if (value !== '' && !backgroundValue.value.tags.includes(value)) {
+        const tags = [...backgroundValue.value.tags, value]
+        backgroundValue.value = Object.assign(backgroundValue.value, { tags })
+      }
+    },
+    deleteTag: (value: string) => {
+      const tags = backgroundValue.value.tags.filter((tag) => tag !== value)
       backgroundValue.value = Object.assign(backgroundValue.value, { tags })
     },
     // Links
