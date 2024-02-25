@@ -1,7 +1,7 @@
 <template>
   <div class="menu-wrap">
     <ul class="menu">
-      <li v-for="item in appStore.categoryItems" :key="item.code">
+      <li v-for="item in appStore.categoryItems" :key="item.code" class="menu__item">
         <button
           class="menu__button"
           :class="{ menu__button_active: item.code === props.activeMenuItem }"
