@@ -70,9 +70,36 @@ describe('appStore - background', () => {
 })
 
 describe('appStore - links', () => {
-  test('links', () => {
+  test('links add', () => {
     const appStore = useAppStore()
-    appStore.setLinks(['a', 'b'])
-    expect(appStore.links).toEqual(['a', 'b'])
+    expect(appStore.links).toEqual([])
+    appStore.addLink('url', 'title')
+    expect(appStore.links).toEqual([{ url: 'url', title: 'title' }])
+    appStore.addLink('url1', 'title1')
+    expect(appStore.links).toEqual([
+      { url: 'url', title: 'title' },
+      { url: 'url1', title: 'title1' }
+    ])
+  })
+
+  test('links delete', () => {
+    const value = {
+      background: {},
+      links: {
+        items: [
+          { url: 'url', title: 'title' },
+          { url: 'url1', title: 'title1' },
+          { url: 'url2', title: 'title2' }
+        ]
+      }
+    }
+
+    const appStore = useAppStore()
+    appStore.appSetValue(JSON.stringify(value))
+    appStore.deleteLink('url1')
+    expect(appStore.links).toEqual([
+      { url: 'url', title: 'title' },
+      { url: 'url2', title: 'title2' }
+    ])
   })
 })

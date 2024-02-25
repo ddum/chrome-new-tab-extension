@@ -65,8 +65,20 @@ export const useAppStore = defineStore('app', () => {
       backgroundValue.value = Object.assign(backgroundValue.value, { tags })
     },
     // Links
-    setLinks: (links: Types.LinkItem[]) => {
-      linksValue.value = Object.assign(linksValue.value, { items: links })
+    addLink: (url: string, title: string) => {
+      if (url === '' || title === '') {
+        return
+      }
+
+      const link = { url, title }
+      linksValue.value = Object.assign(linksValue.value, {
+        items: [...linksValue.value.items, link]
+      })
+    },
+    deleteLink: (url: string) => {
+      linksValue.value = Object.assign(linksValue.value, {
+        items: linksValue.value.items.filter((link) => link.url !== url)
+      })
     },
     links: computed((): Types.LinksValue['items'] => linksValue.value.items)
   }
