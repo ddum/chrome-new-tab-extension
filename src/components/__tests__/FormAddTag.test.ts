@@ -14,6 +14,7 @@ test('FormAddTag рендер формы', async () => {
 
   const button = wrapper.findComponent({ name: 'ButtonBase' })
   expect(button.exists()).toBe(true)
+  expect(button.props().type).toBe('submit')
 })
 
 test('FormAddTag события на форме', async () => {
@@ -25,12 +26,6 @@ test('FormAddTag события на форме', async () => {
   await input.setValue('testTag')
   await form.trigger('submit')
 
-  expect(wrapper.emitted()).toHaveProperty('submit')
-  expect(wrapper.emitted('submit')).toEqual([['testTag']])
-
-  const button = wrapper.findComponent({ name: 'ButtonBase' })
-  await input.setValue('testTag2')
-  await button.trigger('click')
   expect(wrapper.emitted()).toHaveProperty('submit')
   expect(wrapper.emitted('submit')).toEqual([['testTag']])
 })
