@@ -18,7 +18,6 @@ test('BackgroundRefresh смена background', async () => {
   wrapper.get('button-icon-stub').trigger('click')
   await flushPromises()
   const appStore = useAppStore()
-  console.log('URL', appStore.backgroundUrl)
 
   expect(appStore.backgroundUrl).toBe('testURL')
 })
