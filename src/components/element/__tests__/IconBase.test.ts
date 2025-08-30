@@ -1,13 +1,13 @@
-import { test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 import IconBase from '../IconBase.vue'
 
-test('render IconBase', async () => {
+it('render IconBase', async () => {
   const wrapper = mount(IconBase, {
     slots: {
-      default: 'Icon'
-    }
+      default: 'Icon',
+    },
   })
 
   expect(wrapper.html()).toMatchInlineSnapshot(`"<span data-v-f264a43b="" class="icon icon_s1">Icon</span>"`)

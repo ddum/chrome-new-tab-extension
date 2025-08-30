@@ -1,10 +1,10 @@
-import './assets/base.css'
-import 'floating-vue/dist/style.css'
-
-import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createApp } from 'vue'
 
 import App from './App.vue'
+import './assets/base.css'
+
+import 'floating-vue/dist/style.css'
 
 const app = createApp(App)
 const pinia = createPinia()

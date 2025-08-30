@@ -1,10 +1,10 @@
+<script lang="ts" setup></script>
+
 <template>
   <table class="table">
     <slot />
   </table>
 </template>
-
-<script lang="ts" setup></script>
 
 <style scoped>
 .table {

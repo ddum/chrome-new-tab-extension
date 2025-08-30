@@ -1,6 +1,15 @@
+<script lang="ts" setup>
+import { Dropdown, vTooltip } from 'floating-vue'
+
+import IconSettings from '@/assets/img/icons/settings.svg?component'
+import ButtonIcon from '@/components/element/ButtonIcon.vue'
+import IconBase from '@/components/element/IconBase.vue'
+import SettingsWrap from '@/components/SettingsWrap.vue'
+</script>
+
 <template>
   <Dropdown>
-    <ButtonIcon ref="popcorn1" v-tooltip="'Открыть настройки'">
+    <ButtonIcon v-tooltip="'Открыть настройки'">
       <IconBase>
         <IconSettings />
       </IconBase>
@@ -11,12 +20,3 @@
     </template>
   </Dropdown>
 </template>
-
-<script lang="ts" setup>
-import { vTooltip, Dropdown } from 'floating-vue'
-
-import IconSettings from '@/assets/img/icons/settings.svg?component'
-import IconBase from '@/components/element/IconBase.vue'
-import ButtonIcon from '@/components/element/ButtonIcon.vue'
-import SettingsWrap from '@/components/SettingsWrap.vue'
-</script>

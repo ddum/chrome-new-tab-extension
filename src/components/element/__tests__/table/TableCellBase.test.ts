@@ -1,13 +1,13 @@
-import { test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 import TableCellBase from '../../table/TableCellBase.vue'
 
-test('render TableCellBase', async () => {
+it('render TableCellBase', async () => {
   const wrapper = mount(TableCellBase, {
     slots: {
-      default: 'Table Cell'
-    }
+      default: 'Table Cell',
+    },
   })
 
   expect(wrapper.find('td.table__cell').text()).toContain('Table Cell')

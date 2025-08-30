@@ -1,4 +1,5 @@
-import { test, expect, vi } from 'vitest'
+import { expect, vi } from 'vitest'
+
 import useDateTime from '../useDateTime'
 
 vi.useFakeTimers()
@@ -8,22 +9,22 @@ vi.setSystemTime(date)
 
 const { now, timeString, dateString } = useDateTime()
 
-test('test now', () => {
+it('test now', () => {
   expect(now.value.valueOf()).toBe(date.valueOf())
 })
-test('test timeString', () => {
+it('test timeString', () => {
   expect(timeString.value).toBe('01:02')
 })
-test('test dateString', () => {
+it('test dateString', () => {
   expect(dateString.value).toBe('понедельник, 3 октября 1988 г.')
 })
 
-test('test изменения timeString', () => {
+it('test изменения timeString', () => {
   vi.advanceTimersByTime(1000 * 60 * 1)
   expect(timeString.value).toBe('01:03')
 })
 
-test('test изменения dateString', () => {
+it('test изменения dateString', () => {
   vi.advanceTimersByTime(1000 * 60 * 60 * 24)
   expect(dateString.value).toBe('вторник, 4 октября 1988 г.')
 })

@@ -1,12 +1,17 @@
 export default function useFileSystem() {
-  async function saveFile(contents: string, options: SaveFilePickerOptions): Promise<void> {
+  async function saveFile(
+    contents: string,
+    options: SaveFilePickerOptions,
+  ): Promise<void> {
     try {
       const fileHandle = await window.showSaveFilePicker(options)
       const writable = await fileHandle.createWritable()
       await writable.write(contents)
       await writable.close()
-    } catch (ex: any) {
+    }
+    catch (ex: any) {
       if (ex.name !== 'AbortError') {
+        // eslint-disable-next-line no-console
         console.log(ex)
       }
     }
@@ -18,8 +23,10 @@ export default function useFileSystem() {
       const file = await fileHandle[0].getFile()
       const contents = await file.text()
       return contents
-    } catch (ex: any) {
+    }
+    catch (ex: any) {
       if (ex.name !== 'AbortError') {
+        // eslint-disable-next-line no-console
         console.log(ex)
       }
     }
@@ -28,6 +35,6 @@ export default function useFileSystem() {
 
   return {
     saveFile,
-    openFile
+    openFile,
   }
 }

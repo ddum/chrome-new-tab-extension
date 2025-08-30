@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { computed } from 'vue'
 
 import type * as Types from '@/stores/types'
+
 import useStorage from '@/composables/useStorage'
 
 const codeBackground = 'background'
@@ -9,21 +10,21 @@ const codeLinks = 'links'
 const categoryItems: Types.CategoryItem[] = [
   {
     title: 'Фон',
-    code: codeBackground
+    code: codeBackground,
   },
   {
     title: 'Ссылки',
-    code: codeLinks
-  }
+    code: codeLinks,
+  },
 ]
 
 export const useAppStore = defineStore('app', () => {
   const defaultBackgroundValue: Types.BackgroundValue = {
     url: '',
-    tags: []
+    tags: [],
   }
   const defaultLinksValue: Types.LinksValue = {
-    items: []
+    items: [],
   }
 
   const backgroundValue = useStorage<Types.BackgroundValue>(codeBackground, defaultBackgroundValue)
@@ -44,8 +45,8 @@ export const useAppStore = defineStore('app', () => {
     appValueString: computed(() =>
       JSON.stringify({
         [codeBackground]: backgroundValue.value,
-        [codeLinks]: linksValue.value
-      })
+        [codeLinks]: linksValue.value,
+      }),
     ),
     appSetValue,
     // Background
@@ -61,7 +62,7 @@ export const useAppStore = defineStore('app', () => {
       }
     },
     deleteTag: (value: string) => {
-      const tags = backgroundValue.value.tags.filter((tag) => tag !== value)
+      const tags = backgroundValue.value.tags.filter(tag => tag !== value)
       backgroundValue.value = Object.assign(backgroundValue.value, { tags })
     },
     // Links
@@ -72,14 +73,14 @@ export const useAppStore = defineStore('app', () => {
 
       const link = { url, title }
       linksValue.value = Object.assign(linksValue.value, {
-        items: [...linksValue.value.items, link]
+        items: [...linksValue.value.items, link],
       })
     },
     deleteLink: (url: string) => {
       linksValue.value = Object.assign(linksValue.value, {
-        items: linksValue.value.items.filter((link) => link.url !== url)
+        items: linksValue.value.items.filter(link => link.url !== url),
       })
     },
-    links: computed((): Types.LinksValue['items'] => linksValue.value.items)
+    links: computed((): Types.LinksValue['items'] => linksValue.value.items),
   }
 })

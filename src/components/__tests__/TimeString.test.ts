@@ -1,9 +1,9 @@
-import { test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 import TimeString from '../TimeString.vue'
 
-test('TimeString - render', async () => {
+it('timeString - render', async () => {
   const wrapper = mount(TimeString)
   expect(wrapper.find('.time').exists()).toBe(true)
   expect(wrapper.find('.date').exists()).toBe(true)

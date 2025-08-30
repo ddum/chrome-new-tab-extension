@@ -1,35 +1,35 @@
-<template>
-  <div class="settings">
-    <div class="settings__menu">
-      <SettingsMenu @set-menu-item="setCurrentMenuItem" :active-menu-item="currentMenuItem" />
-    </div>
-    <div class="settings__content">
-      <component :is="currentMenuItemComponent" />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { ref, watchEffect, shallowRef, defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref, shallowRef, watchEffect } from 'vue'
 
 import SettingsMenu from '@/components/SettingsMenu.vue'
-
 import { useAppStore } from '@/stores'
+
 const appStore = useAppStore()
 
-let currentMenuItem = ref<string>(appStore.categoryItems[0].code)
+const currentMenuItem = ref<string>(appStore.categoryItems[0].code)
 function setCurrentMenuItem(code: string) {
   currentMenuItem.value = code
 }
 
 const currentMenuItemComponent = shallowRef(null)
 watchEffect(() => {
-  let code = currentMenuItem.value
+  const code = currentMenuItem.value
   currentMenuItemComponent.value = defineAsyncComponent(
-    () => import(`@/components/Settings${code[0].toUpperCase() + code.slice(1)}.vue`)
+    () => import(`@/components/Settings${code[0].toUpperCase() + code.slice(1)}.vue`),
   )
 })
 </script>
+
+<template>
+  <div class="settings">
+    <div class="settings__menu">
+      <SettingsMenu :active-menu-item="currentMenuItem" @set-menu-item="setCurrentMenuItem" />
+    </div>
+    <div class="settings__content">
+      <component :is="currentMenuItemComponent" />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .settings {

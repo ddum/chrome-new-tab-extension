@@ -1,7 +1,3 @@
-<template>
-  <input :type="type" class="input" :placeholder="props.placeholder" v-model.trim="inputValue" />
-</template>
-
 <script lang="ts" setup>
 interface Props {
   type?: string
@@ -10,11 +6,15 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
-  placeholder: ''
+  placeholder: '',
 })
 
 const inputValue = defineModel<string>({ type: String })
 </script>
+
+<template>
+  <input v-model.trim="inputValue" :type="type" class="input" :placeholder="props.placeholder">
+</template>
 
 <style scoped>
 .input {

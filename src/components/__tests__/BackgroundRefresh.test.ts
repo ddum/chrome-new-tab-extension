@@ -1,16 +1,16 @@
-import { test, expect, beforeEach, vi } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
-import { setActivePinia, createPinia } from 'pinia'
+import { createPinia, setActivePinia } from 'pinia'
+import { beforeEach, expect, it, vi } from 'vitest'
 
-import BackgroundRefresh from '../BackgroundRefresh.vue'
 import { useAppStore } from '../../stores'
+import BackgroundRefresh from '../BackgroundRefresh.vue'
 
 beforeEach(() => {
   setActivePinia(createPinia())
 })
 
-test('BackgroundRefresh смена background', async () => {
-  global.fetch = vi.fn().mockResolvedValue({ url: 'testURL' })
+it('backgroundRefresh смена background', async () => {
+  globalThis.fetch = vi.fn().mockResolvedValue({ url: 'testURL' })
 
   const wrapper = mount(BackgroundRefresh, { shallow: true })
   expect(wrapper.find('button-icon-stub').exists()).toBe(true)

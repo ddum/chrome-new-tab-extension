@@ -1,10 +1,3 @@
-<template>
-  <img
-    :src="`https://www.google.com/s2/favicons?sz=32&amp;domain=${props.domain}`"
-    class="icon-favicon"
-  />
-</template>
-
 <script lang="ts" setup>
 interface Props {
   domain: string
@@ -12,6 +5,13 @@ interface Props {
 
 const props = defineProps<Props>()
 </script>
+
+<template>
+  <img
+    :src="`https://www.google.com/s2/favicons?sz=32&amp;domain=${props.domain}`"
+    class="icon-favicon"
+  >
+</template>
 
 <style scoped>
 .icon-favicon {

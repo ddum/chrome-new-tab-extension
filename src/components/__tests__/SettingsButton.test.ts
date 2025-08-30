@@ -1,18 +1,18 @@
-import { test, expect } from 'vitest'
-import { nextTick } from 'vue'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
+import { nextTick } from 'vue'
 
 import SettingsButton from '../SettingsButton.vue'
 
-test('SettingsButton рендер', async () => {
+it('settingsButton рендер', async () => {
   const wrapper = mount(SettingsButton, {
     global: {
       stubs: {
         SettingsWrap: {
-          template: '<div class="settings-wrap"></div>'
-        }
-      }
-    }
+          template: '<div class="settings-wrap"></div>',
+        },
+      },
+    },
   })
 
   const button = wrapper.findComponent({ name: 'ButtonIcon' })

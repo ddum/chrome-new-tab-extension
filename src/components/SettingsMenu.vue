@@ -1,44 +1,14 @@
-<template>
-  <div class="menu-wrap">
-    <ul class="menu">
-      <li v-for="item in appStore.categoryItems" :key="item.code" class="menu__item">
-        <button
-          class="menu__button"
-          :class="{ menu__button_active: item.code === props.activeMenuItem }"
-          @click="emit('set-menu-item', item.code)"
-        >
-          {{ item.title }}
-        </button>
-      </li>
-    </ul>
-    <div class="menu-buttons">
-      <ButtonBase class="menu-buttons__item" @click="importData"
-        >Import <IconBase class="menu-buttons__icon" size="s1"><IconImport /></IconBase
-      ></ButtonBase>
-      <ButtonBase class="menu-buttons__item" @click="exportData"
-        >Export <IconBase class="menu-buttons__icon" size="s1"><IconExport /></IconBase
-      ></ButtonBase>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { useAppStore } from '@/stores'
-import useFileSystem from '@/composables/useFileSystem'
-
+import IconExport from '@/assets/img/icons/export.svg?component'
+import IconImport from '@/assets/img/icons/import.svg?component'
 import ButtonBase from '@/components/element/ButtonBase.vue'
 import IconBase from '@/components/element/IconBase.vue'
+import useFileSystem from '@/composables/useFileSystem'
+import { useAppStore } from '@/stores'
 
-import IconImport from '@/assets/img/icons/import.svg?component'
-import IconExport from '@/assets/img/icons/export.svg?component'
+const props = defineProps<{ activeMenuItem: string }>()
 
-const emit = defineEmits<{
-  'set-menu-item': [code: string]
-}>()
-
-const props = defineProps<{
-  activeMenuItem: string
-}>()
+const emit = defineEmits<{ setMenuItem: [code: string] }>()
 
 const appStore = useAppStore()
 const { saveFile, openFile } = useFileSystem()
@@ -48,10 +18,10 @@ async function importData() {
     types: [
       {
         accept: {
-          'text/plain': ['.json']
-        }
-      }
-    ]
+          'text/plain': ['.json'],
+        },
+      },
+    ],
   })
   if (data) {
     appStore.appSetValue(data)
@@ -64,13 +34,41 @@ async function exportData() {
     types: [
       {
         accept: {
-          'text/plain': ['.json']
-        }
-      }
-    ]
+          'text/plain': ['.json'],
+        },
+      },
+    ],
   })
 }
 </script>
+
+<template>
+  <div class="menu-wrap">
+    <ul class="menu">
+      <li v-for="item in appStore.categoryItems" :key="item.code" class="menu__item">
+        <button
+          class="menu__button"
+          :class="{ menu__button_active: item.code === props.activeMenuItem }"
+          @click="emit('setMenuItem', item.code)"
+        >
+          {{ item.title }}
+        </button>
+      </li>
+    </ul>
+    <div class="menu-buttons">
+      <ButtonBase class="menu-buttons__item" @click="importData">
+        Import <IconBase class="menu-buttons__icon" size="s1">
+          <IconImport />
+        </IconBase>
+      </ButtonBase>
+      <ButtonBase class="menu-buttons__item" @click="exportData">
+        Export <IconBase class="menu-buttons__icon" size="s1">
+          <IconExport />
+        </IconBase>
+      </ButtonBase>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .menu-wrap {

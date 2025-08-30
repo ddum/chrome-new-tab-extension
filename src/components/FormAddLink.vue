@@ -1,24 +1,8 @@
-<template>
-  <form class="form" @submit.prevent="submitHandler">
-    <div class="form__row">
-      <div class="form__row-title">Ссылка</div>
-      <InputBase class="link" v-model.trim="link" />
-    </div>
-    <div class="form__row">
-      <div class="form__row-title">Заголовок</div>
-      <InputBase class="title" v-model.trim="title" />
-    </div>
-    <div class="form__row">
-      <ButtonBase type="submit">Добавить</ButtonBase>
-    </div>
-  </form>
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import InputBase from '@/components/element/InputBase.vue'
 import ButtonBase from '@/components/element/ButtonBase.vue'
+import InputBase from '@/components/element/InputBase.vue'
 
 const emit = defineEmits<{
   submit: [url: string, title: string]
@@ -35,6 +19,28 @@ function submitHandler() {
   }
 }
 </script>
+
+<template>
+  <form class="form" @submit.prevent="submitHandler">
+    <div class="form__row">
+      <div class="form__row-title">
+        Ссылка
+      </div>
+      <InputBase v-model.trim="link" class="link" />
+    </div>
+    <div class="form__row">
+      <div class="form__row-title">
+        Заголовок
+      </div>
+      <InputBase v-model.trim="title" class="title" />
+    </div>
+    <div class="form__row">
+      <ButtonBase type="submit">
+        Добавить
+      </ButtonBase>
+    </div>
+  </form>
+</template>
 
 <style scoped>
 .form {

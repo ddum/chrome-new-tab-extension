@@ -1,8 +1,8 @@
-import { test, expect, beforeEach, vi } from 'vitest'
-import useStorage from '../useStorage'
-import { RefSymbol } from '@vue/reactivity'
+import { beforeEach, expect } from 'vitest'
 
-type TestValue = {
+import useStorage from '../useStorage'
+
+interface TestValue {
   url: string
   tags: string[]
 }
@@ -13,12 +13,12 @@ beforeEach(() => {
   localStorage.clear()
 })
 
-test('useStorage - значение по умолчанию', () => {
+it('useStorage - значение по умолчанию', () => {
   const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
   expect(value.value).toStrictEqual({ url: 'test', tags: ['a', 'b'] })
 })
 
-test('useStorage - set', () => {
+it('useStorage - set', () => {
   const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
   value.value = { url: 'test2', tags: ['c', 'd'] }
 
@@ -26,13 +26,13 @@ test('useStorage - set', () => {
   expect(localStorageValue).toStrictEqual({ url: 'test2', tags: ['c', 'd'] })
 })
 
-test('useStorage - get', () => {
+it('useStorage - get', () => {
   const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
   value.value = { url: 'test3', tags: ['c', 'd'] }
   expect(value.value).toStrictEqual({ url: 'test3', tags: ['c', 'd'] })
 })
 
-test('useStorage - изменение LocalStorage напрямую', () => {
+it('useStorage - изменение LocalStorage напрямую', () => {
   const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
 
   localStorage.setItem(codeTest, JSON.stringify({ url: 'test4', tags: ['c', 'd'] }))

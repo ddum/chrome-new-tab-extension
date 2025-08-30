@@ -1,20 +1,20 @@
-import { test, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
 import { createTestingPinia } from '@pinia/testing'
-
-import SettingsWrap from '../SettingsWrap.vue'
+import { mount } from '@vue/test-utils'
+import { expect, vi } from 'vitest'
 import { nextTick } from 'vue'
 
-test('SettingsWrap - render', async () => {
+import SettingsWrap from '../SettingsWrap.vue'
+
+it('settingsWrap - render', async () => {
   const wrapper = mount(SettingsWrap, {
     global: {
-      plugins: [createTestingPinia({ createSpy: vi.fn })]
-    }
+      plugins: [createTestingPinia({ createSpy: vi.fn })],
+    },
   })
 
   expect(wrapper.findComponent({ name: 'SettingsMenu' }).exists()).toBe(true)
   ;(wrapper.vm as any).currentMenuItemComponent = {
-    template: '<div>test Component</div>'
+    template: '<div>test Component</div>',
   }
 
   await nextTick()

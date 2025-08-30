@@ -1,9 +1,9 @@
-import { test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 import FormAddTag from '../FormAddTag.vue'
 
-test('FormAddTag рендер формы', async () => {
+it('formAddTag рендер формы', async () => {
   const wrapper = mount(FormAddTag)
 
   const form = wrapper.find<HTMLInputElement>('.form')
@@ -17,7 +17,7 @@ test('FormAddTag рендер формы', async () => {
   expect(button.props().type).toBe('submit')
 })
 
-test('FormAddTag события на форме', async () => {
+it('formAddTag события на форме', async () => {
   const wrapper = mount(FormAddTag)
 
   const form = wrapper.find<HTMLInputElement>('.form')

@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 export default function useDateTime() {
   const now = ref(new Date())
@@ -8,7 +8,7 @@ export default function useDateTime() {
   const timeString = computed(() => {
     const hours = now.value.getHours()
     const minutes = now.value.getMinutes()
-    return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}`
+    return `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}`
   })
 
   const dateString = computed(() => {
@@ -16,13 +16,13 @@ export default function useDateTime() {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     })
   })
 
   return {
     now,
     timeString,
-    dateString
+    dateString,
   }
 }

@@ -1,18 +1,18 @@
-<template>
-  <button :type="props.type" class="button">
-    <slot />
-  </button>
-</template>
-
 <script lang="ts" setup>
 interface Props {
   type?: 'submit' | 'reset' | 'button'
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  type: 'button'
+  type: 'button',
 })
 </script>
+
+<template>
+  <button :type="props.type" class="button">
+    <slot />
+  </button>
+</template>
 
 <style scoped>
 .button {

@@ -1,3 +1,17 @@
+<script lang="ts" setup>
+import FloatingVue from 'floating-vue'
+
+import BackgroundRefresh from '@/components/BackgroundRefresh.vue'
+import LinksList from '@/components/LinksList.vue'
+import SettingsButton from '@/components/SettingsButton.vue'
+import TimeString from '@/components/TimeString.vue'
+import { useAppStore } from '@/stores'
+
+FloatingVue.options.overflowPadding = 12
+
+const appStore = useAppStore()
+</script>
+
 <template>
   <div class="wrapper" :style="{ backgroundImage: `url(${appStore.backgroundUrl})` }">
     <div class="center">
@@ -8,7 +22,7 @@
         <div class="layout__left">
           <LinksList :links="appStore.links" />
         </div>
-        <div class="layout__right"></div>
+        <div class="layout__right" />
       </div>
     </div>
     <div class="footer">
@@ -23,20 +37,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import TimeString from '@/components/TimeString.vue'
-import BackgroundRefresh from '@/components/BackgroundRefresh.vue'
-import SettingsButton from '@/components/SettingsButton.vue'
-import LinksList from '@/components/LinksList.vue'
-
-import FloatingVue from 'floating-vue'
-FloatingVue.options.overflowPadding = 12
-
-import { useAppStore } from '@/stores'
-
-const appStore = useAppStore()
-</script>
 
 <style scoped>
 .wrapper {

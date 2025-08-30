@@ -1,5 +1,5 @@
-import { setActivePinia, createPinia } from 'pinia'
-import { describe, test, expect, beforeEach, afterEach } from 'vitest'
+import { createPinia, setActivePinia } from 'pinia'
+import { afterEach, beforeEach, describe, expect } from 'vitest'
 
 import { useAppStore } from '../index'
 
@@ -12,22 +12,22 @@ afterEach(() => {
 })
 
 describe('appStore - общее значение', () => {
-  test('categoryItems', () => {
+  it('categoryItems', () => {
     const appStore = useAppStore()
     expect(Array.isArray(appStore.categoryItems)).toBe(true)
   })
 
-  test('установка значения', () => {
+  it('установка значения', () => {
     const appStore = useAppStore()
 
     const value = {
       background: {
         url: 'test',
-        tags: ['a', 'b']
+        tags: ['a', 'b'],
       },
       links: {
-        items: []
-      }
+        items: [],
+      },
     }
 
     appStore.appSetValue(JSON.stringify(value))
@@ -36,13 +36,13 @@ describe('appStore - общее значение', () => {
 })
 
 describe('appStore - background', () => {
-  test('url background', () => {
+  it('url background', () => {
     const appStore = useAppStore()
     appStore.setBackgroundUrl('test')
     expect(appStore.backgroundUrl).toBe('test')
   })
 
-  test('tags add', () => {
+  it('tags add', () => {
     const appStore = useAppStore()
     expect(appStore.backgroundTags).toEqual([])
     appStore.addTag('a')
@@ -51,15 +51,15 @@ describe('appStore - background', () => {
     expect(appStore.backgroundTags).toEqual(['a', 'b'])
   })
 
-  test('tags delete', () => {
+  it('tags delete', () => {
     const value = {
       background: {
         url: 'test',
-        tags: ['a', 'b', 'c']
+        tags: ['a', 'b', 'c'],
       },
       links: {
-        items: []
-      }
+        items: [],
+      },
     }
 
     const appStore = useAppStore()
@@ -70,7 +70,7 @@ describe('appStore - background', () => {
 })
 
 describe('appStore - links', () => {
-  test('links add', () => {
+  it('links add', () => {
     const appStore = useAppStore()
     expect(appStore.links).toEqual([])
     appStore.addLink('url', 'title')
@@ -78,20 +78,20 @@ describe('appStore - links', () => {
     appStore.addLink('url1', 'title1')
     expect(appStore.links).toEqual([
       { url: 'url', title: 'title' },
-      { url: 'url1', title: 'title1' }
+      { url: 'url1', title: 'title1' },
     ])
   })
 
-  test('links delete', () => {
+  it('links delete', () => {
     const value = {
       background: {},
       links: {
         items: [
           { url: 'url', title: 'title' },
           { url: 'url1', title: 'title1' },
-          { url: 'url2', title: 'title2' }
-        ]
-      }
+          { url: 'url2', title: 'title2' },
+        ],
+      },
     }
 
     const appStore = useAppStore()
@@ -99,7 +99,7 @@ describe('appStore - links', () => {
     appStore.deleteLink('url1')
     expect(appStore.links).toEqual([
       { url: 'url', title: 'title' },
-      { url: 'url2', title: 'title2' }
+      { url: 'url2', title: 'title2' },
     ])
   })
 })

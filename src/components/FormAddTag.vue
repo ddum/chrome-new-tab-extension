@@ -1,15 +1,8 @@
-<template>
-  <form class="form" @submit.prevent="submitHandler">
-    <InputBase placeholder="Тег изображения" v-model.trim="tagInput" />
-    <ButtonBase type="submit" class="form__button">Добавить</ButtonBase>
-  </form>
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import InputBase from '@/components/element/InputBase.vue'
 import ButtonBase from '@/components/element/ButtonBase.vue'
+import InputBase from '@/components/element/InputBase.vue'
 
 const emit = defineEmits<{
   submit: [value: string]
@@ -24,6 +17,15 @@ function submitHandler() {
   }
 }
 </script>
+
+<template>
+  <form class="form" @submit.prevent="submitHandler">
+    <InputBase v-model.trim="tagInput" placeholder="Тег изображения" />
+    <ButtonBase type="submit" class="form__button">
+      Добавить
+    </ButtonBase>
+  </form>
+</template>
 
 <style scoped>
 .form {

@@ -1,21 +1,21 @@
-import { test, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { setActivePinia, createPinia } from 'pinia'
 import { createTestingPinia } from '@pinia/testing'
+import { mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
+import { expect, vi } from 'vitest'
 import { nextTick } from 'vue'
 
-import SettingsLinks from '../SettingsLinks.vue'
 import { useAppStore } from '../../stores'
+import SettingsLinks from '../SettingsLinks.vue'
 
-test('render пустой SettingsLinks', async () => {
+it('render пустой SettingsLinks', async () => {
   const wrapper = mount(SettingsLinks, {
     global: {
       plugins: [
         createTestingPinia({
-          createSpy: vi.fn
-        })
-      ]
-    }
+          createSpy: vi.fn,
+        }),
+      ],
+    },
   })
   expect(wrapper.findComponent({ name: 'FormAddLink' }).exists()).toBe(true)
   expect(wrapper.find('.links').exists()).toBe(true)
@@ -23,7 +23,7 @@ test('render пустой SettingsLinks', async () => {
   expect(wrapper.findAll('.table__row')).toHaveLength(0)
 })
 
-test('render SettingsLinks', async () => {
+it('render SettingsLinks', async () => {
   setActivePinia(createPinia())
 
   const wrapper = mount(SettingsLinks)

@@ -1,18 +1,18 @@
-<template>
-  <td class="table__cell" :class="`table__cell_${props.align}`">
-    <slot />
-  </td>
-</template>
-
 <script lang="ts" setup>
 interface Props {
   align?: 'left' | 'right' | 'center'
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  align: 'left'
+  align: 'left',
 })
 </script>
+
+<template>
+  <td class="table__cell" :class="`table__cell_${props.align}`">
+    <slot />
+  </td>
+</template>
 
 <style scoped>
 .table__cell {

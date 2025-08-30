@@ -13,7 +13,7 @@ function preloadImage(url: string): Promise<HTMLImageElement> {
     image.src = url
 
     image.onload = () => resolve(image)
-    image.onerror = () => reject()
+    image.onerror = () => reject(new Error('Failed to load image'))
   })
 }
 
@@ -44,7 +44,8 @@ export function useBackground() {
 
       const image = await preloadImage(urlPhoto.href)
       imgUrl.value = image.src
-    } else {
+    }
+    else {
       imgUrl.value = ''
     }
 

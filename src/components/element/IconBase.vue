@@ -1,18 +1,18 @@
-<template>
-  <span class="icon" :class="`icon_${props.size}`">
-    <slot />
-  </span>
-</template>
-
 <script lang="ts" setup>
 interface Props {
   size?: 's1' | 's2' | 's3' | 's4'
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  size: 's1'
+  size: 's1',
 })
 </script>
+
+<template>
+  <span class="icon" :class="`icon_${props.size}`">
+    <slot />
+  </span>
+</template>
 
 <style scoped>
 .icon {

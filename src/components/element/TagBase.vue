@@ -1,30 +1,30 @@
-<template>
-  <div class="tag">
-    <span><slot /></span>
-    <button class="tag__button" v-if="props.deleteButton" @click="emit('delete')">
-      <IconBase size="s4">
-        <IconClose fill="red" />
-      </IconBase>
-    </button>
-  </div>
-</template>
-
 <script lang="ts" setup>
-import IconBase from '@/components/element/IconBase.vue'
 import IconClose from '@/assets/img/icons/close.svg?component'
+import IconBase from '@/components/element/IconBase.vue'
 
 interface Props {
   deleteButton?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  deleteButton: true
+  deleteButton: true,
 })
 
 const emit = defineEmits<{
   delete: []
 }>()
 </script>
+
+<template>
+  <div class="tag">
+    <span><slot /></span>
+    <button v-if="props.deleteButton" class="tag__button" @click="emit('delete')">
+      <IconBase size="s4">
+        <IconClose fill="red" />
+      </IconBase>
+    </button>
+  </div>
+</template>
 
 <style scoped>
 .tag {

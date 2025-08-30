@@ -1,12 +1,17 @@
-<template>
-  <div class="time">{{ timeString }}</div>
-  <div class="date">{{ dateString }}</div>
-</template>
-
 <script lang="ts" setup>
 import useDateTime from '@/composables/useDateTime'
+
 const { timeString, dateString } = useDateTime()
 </script>
+
+<template>
+  <div class="time">
+    {{ timeString }}
+  </div>
+  <div class="date">
+    {{ dateString }}
+  </div>
+</template>
 
 <style scoped>
 .time {

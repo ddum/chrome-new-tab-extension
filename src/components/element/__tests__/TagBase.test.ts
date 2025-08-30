@@ -1,13 +1,13 @@
-import { test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 import TagBase from '../TagBase.vue'
 
-test('render TagBase', async () => {
+it('render TagBase', async () => {
   const wrapper = mount(TagBase, {
     slots: {
-      default: 'Tag Text'
-    }
+      default: 'Tag Text',
+    },
   })
 
   expect(wrapper.text()).toBe('Tag Text')
@@ -16,7 +16,7 @@ test('render TagBase', async () => {
   expect(wrapper.find('.tag__button').exists()).toBe(true)
 })
 
-test('TagBase событие delete', () => {
+it('tagBase событие delete', () => {
   const wrapper = mount(TagBase)
   wrapper.find('.tag__button').trigger('click')
   expect(wrapper.emitted()).toHaveProperty('delete')

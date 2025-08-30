@@ -1,12 +1,3 @@
-<template>
-  <button
-    class="button"
-    :class="{ button_rotate: props.rotate, button_rotate_hover: props.rotateHover }"
-  >
-    <slot />
-  </button>
-</template>
-
 <script lang="ts" setup>
 interface Props {
   rotateHover?: boolean
@@ -15,9 +6,18 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   rotate: false,
-  rotateHover: true
+  rotateHover: true,
 })
 </script>
+
+<template>
+  <button
+    class="button"
+    :class="{ button_rotate: props.rotate, button_rotate_hover: props.rotateHover }"
+  >
+    <slot />
+  </button>
+</template>
 
 <style scoped>
 .button {

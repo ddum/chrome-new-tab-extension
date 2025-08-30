@@ -1,9 +1,9 @@
-import { test, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { expect } from 'vitest'
 
 import FormAddLink from '../FormAddLink.vue'
 
-test('FormAddLink рендер формы', async () => {
+it('formAddLink рендер формы', async () => {
   const wrapper = mount(FormAddLink)
 
   const form = wrapper.find<HTMLInputElement>('.form')
@@ -17,7 +17,7 @@ test('FormAddLink рендер формы', async () => {
   expect(button.props().type).toBe('submit')
 })
 
-test('FormAddLink события на форме', async () => {
+it('formAddLink события на форме', async () => {
   const wrapper = mount(FormAddLink)
 
   const form = wrapper.find<HTMLInputElement>('.form')

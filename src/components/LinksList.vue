@@ -1,6 +1,18 @@
+<script lang="ts" setup>
+import type { LinkItem } from '@/stores/types'
+
+import LinkFavicon from '@/components/element/LinkFavicon.vue'
+
+interface Props {
+  links: LinkItem[]
+}
+
+const props = defineProps<Props>()
+</script>
+
 <template>
   <div class="links">
-    <div class="links__item" v-for="link in props.links" :key="link.url">
+    <div v-for="link in props.links" :key="link.url" class="links__item">
       <a :href="link.url" class="links__link">
         <div class="links__favicon"><LinkFavicon :domain="link.url" /></div>
         <div class="links__title">
@@ -10,19 +22,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import LinkFavicon from '@/components/element/LinkFavicon.vue'
-import type { LinkItem } from '@/stores/types'
-
-interface Props {
-  links: LinkItem[]
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  links: () => []
-})
-</script>
 
 <style scoped>
 .links {

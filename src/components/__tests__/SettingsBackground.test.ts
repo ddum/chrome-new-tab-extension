@@ -1,21 +1,21 @@
-import { test, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
-import { setActivePinia, createPinia } from 'pinia'
 import { createTestingPinia } from '@pinia/testing'
+import { mount } from '@vue/test-utils'
+import { createPinia, setActivePinia } from 'pinia'
+import { expect, vi } from 'vitest'
 import { nextTick } from 'vue'
 
-import SettingsBackground from '../SettingsBackground.vue'
 import { useAppStore } from '../../stores'
+import SettingsBackground from '../SettingsBackground.vue'
 
-test('render пустой SettingsBackground', async () => {
+it('render пустой SettingsBackground', async () => {
   const wrapper = mount(SettingsBackground, {
     global: {
       plugins: [
         createTestingPinia({
-          createSpy: vi.fn
-        })
-      ]
-    }
+          createSpy: vi.fn,
+        }),
+      ],
+    },
   })
   expect(wrapper.findComponent({ name: 'FormAddTag' }).exists()).toBe(true)
   expect(wrapper.find('.tags').exists()).toBe(true)
@@ -23,7 +23,7 @@ test('render пустой SettingsBackground', async () => {
   expect(wrapper.findAllComponents({ name: 'TagBase' })).toHaveLength(0)
 })
 
-test('render SettingsBackground', async () => {
+it('render SettingsBackground', async () => {
   setActivePinia(createPinia())
 
   const wrapper = mount(SettingsBackground)
