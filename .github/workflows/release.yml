@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install CRX tool
+        run: npm install -g crx
+
       - name: Build
         run: |
           npm run build
@@ -27,6 +30,10 @@ jobs:
         run: |
           cd dist
           zip -r ../extension.zip .
+
+      - name: Create unsigned CRX file
+        run: |
+          npx crx pack dist -o extension.crx
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -37,11 +44,13 @@ jobs:
             Auto release created by workflow
           artifacts: |
             extension.zip
+            extension.crx
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: extension-build
+          name: chrome-new-tab-extension-${{ github.ref_name }}
           path: |
             extension.zip
+            extension.crx
           retention-days: 30
