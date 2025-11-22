@@ -1,5 +1,5 @@
 {
-  "name": "crome-new-tab",
+  "name": "chrome-new-tab-extension",
   "type": "module",
   "version": "0.0.0",
   "private": true,
