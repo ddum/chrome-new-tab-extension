@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "NewTab",
   "description": "Crome New Tab",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icons": {
     "192": "img/icons/192x192.png"
   },
