@@ -1,4 +1,4 @@
-const fs = require('node:fs')
+import fs from 'node:fs'
 
 // Читаем package.json
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'))
