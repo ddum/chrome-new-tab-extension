@@ -15,7 +15,8 @@
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "preversion": "run-p lint type-check",
-    "version": "node scripts/sync-version.js",
+    "version": "node scripts/sync-version.js && git add -A public/manifest.json",
+    "postversion": "git push && git push --tags",
     "release:patch": "npm version patch",
     "release:minor": "npm version minor",
     "release:major": "npm version major"

@@ -10,6 +10,6 @@ const manifest = JSON.parse(fs.readFileSync('public/manifest.json', 'utf8'))
 manifest.version = pkg.version
 
 // Записываем обновленный manifest.json
-fs.writeFileSync('public/manifest.json', JSON.stringify(manifest, null, 2))
+fs.writeFileSync('public/manifest.json', `${JSON.stringify(manifest, null, 2)}\n`)
 
 console.log(`Version updated to ${pkg.version} in manifest.json`)
