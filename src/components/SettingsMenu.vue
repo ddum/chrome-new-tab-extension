@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { CategoryItem } from '@/stores/types'
+
 import IconExport from '@/assets/img/icons/export.svg?component'
 import IconImport from '@/assets/img/icons/import.svg?component'
 import ButtonBase from '@/components/element/ButtonBase.vue'
@@ -6,9 +8,9 @@ import IconBase from '@/components/element/IconBase.vue'
 import useFileSystem from '@/composables/useFileSystem'
 import { useAppStore } from '@/stores'
 
-const props = defineProps<{ activeMenuItem: string }>()
+const props = defineProps<{ activeMenuItem: CategoryItem | null }>()
 
-const emit = defineEmits<{ setMenuItem: [code: string] }>()
+const emit = defineEmits<{ setMenuItem: [item: CategoryItem] }>()
 
 const appStore = useAppStore()
 const { saveFile, openFile } = useFileSystem()
@@ -48,8 +50,8 @@ async function exportData() {
       <li v-for="item in appStore.categoryItems" :key="item.code" class="menu__item">
         <button
           class="menu__button"
-          :class="{ menu__button_active: item.code === props.activeMenuItem }"
-          @click="emit('setMenuItem', item.code)"
+          :class="{ menu__button_active: item.code === props.activeMenuItem?.code }"
+          @click="emit('setMenuItem', item)"
         >
           {{ item.title }}
         </button>

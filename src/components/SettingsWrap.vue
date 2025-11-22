@@ -1,23 +1,32 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, ref, shallowRef, watchEffect } from 'vue'
+import type { Component } from 'vue'
+
+import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue'
+
+import type { CategoryItem } from '@/stores/types'
 
 import SettingsMenu from '@/components/SettingsMenu.vue'
 import { useAppStore } from '@/stores'
 
 const appStore = useAppStore()
 
-const currentMenuItem = ref<string>(appStore.categoryItems[0].code)
-function setCurrentMenuItem(code: string) {
-  currentMenuItem.value = code
+const currentMenuItem = ref<CategoryItem | null>(appStore.categoryItems[0] ?? null)
+
+const currentComponentCode = computed(() => currentMenuItem.value?.code ?? '')
+
+function setCurrentMenuItem(item: CategoryItem) {
+  currentMenuItem.value = item
 }
 
-const currentMenuItemComponent = shallowRef(null)
-watchEffect(() => {
-  const code = currentMenuItem.value
-  currentMenuItemComponent.value = defineAsyncComponent(
-    () => import(`@/components/Settings${code[0].toUpperCase() + code.slice(1)}.vue`),
-  )
-})
+const loaders = {
+  links: () => import('@/components/SettingsLinks.vue'),
+  background: () => import('@/components/SettingsBackground.vue'),
+}
+
+const currentMenuItemComponent = shallowRef<Component | null>(null)
+watch(currentComponentCode, () => {
+  currentMenuItemComponent.value = defineAsyncComponent(loaders[currentComponentCode.value as keyof typeof loaders])
+}, { immediate: true })
 </script>
 
 <template>

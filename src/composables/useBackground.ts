@@ -38,8 +38,9 @@ export function useBackground() {
       const urlPhoto = new URL(photo.urls.raw)
 
       if (options.size && options.size.length > 0) {
-        urlPhoto.searchParams.append('w', options.size[0].toString())
-        urlPhoto.searchParams.append('h', options.size[1].toString())
+        const [w, h] = options.size
+        urlPhoto.searchParams.append('w', String(w))
+        urlPhoto.searchParams.append('h', String(h))
       }
 
       const image = await preloadImage(urlPhoto.href)

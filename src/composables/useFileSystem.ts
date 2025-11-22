@@ -19,8 +19,14 @@ export default function useFileSystem() {
 
   async function openFile(options: OpenFilePickerOptions): Promise<string> {
     try {
-      const fileHandle = await window.showOpenFilePicker(options)
-      const file = await fileHandle[0].getFile()
+      const fileHandleList = await window.showOpenFilePicker(options)
+      const fileHandle = fileHandleList[0]
+
+      if (!fileHandle) {
+        throw new Error('No file selected')
+      }
+
+      const file = await fileHandle.getFile()
       const contents = await file.text()
       return contents
     }
