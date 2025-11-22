@@ -13,7 +13,12 @@
     "format": "eslint --fix",
     "test:watch": "vitest",
     "test:run": "vitest run",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "preversion": "type-check && lint",
+    "version": "node scripts/sync-version.js",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major"
   },
   "dependencies": {
     "floating-vue": "^5.2.2",
