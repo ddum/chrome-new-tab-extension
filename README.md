@@ -27,3 +27,11 @@
 ## Лицензия
 
 MIT
+
+<!-- AUTO-GENERATED: ENRICH-README -->
+## Контекст для AI-агентов
+
+- Правила работы и проверочные команды: `AGENTS.md`.
+- Карта архитектуры и предметной области: `CONTEXT.md`.
+- Накопленные технические уроки: `MEMORY.md`.
+<!-- END AUTO-GENERATED: ENRICH-README -->
