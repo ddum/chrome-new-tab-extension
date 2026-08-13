@@ -24,11 +24,12 @@ No integration or smoke/E2E test command is configured.
 
 ## Constraints
 
+- Do not run `npm run build` or otherwise produce the production bundle unless the user explicitly asks. Validate with lint, type-check, and unit tests instead.
 - Do not edit generated or ignored outputs: `dist/`, `coverage/`, `node_modules/`, or `*.tsbuildinfo`.
 - `scripts/sync-version.js` synchronizes the version in `public/manifest.json`; do not manually desynchronize those versions.
 - Treat external-service credentials as secrets: do not add, copy, or expose them in source, documentation, test fixtures, or output.
 - Release scripts invoke `npm version`, then push commits and tags. Run them only when explicitly requested.
-- Preserve the persisted localStorage keys (`background`, `links`) and import/export JSON shape unless a migration is part of the task.
+- Preserve the persisted localStorage key (`ChromeNewTab`) and import/export JSON shape (`background`, `links`) unless a migration is part of the task.
 
 ## Relevant Skills
 
