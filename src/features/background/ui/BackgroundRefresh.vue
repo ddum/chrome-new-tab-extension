@@ -12,6 +12,7 @@ const { imgUrl, isLoading, random } = useRandomBackground()
 
 async function randomBackground() {
   await random({
+    accessKey: backgroundStore.accessKey,
     tags: backgroundStore.tags,
     size: [window.innerWidth, window.innerHeight],
   })

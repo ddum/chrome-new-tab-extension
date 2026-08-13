@@ -33,6 +33,7 @@ beforeEach(() => {
 afterEach(() => {
   vi.unstubAllGlobals()
   vi.restoreAllMocks()
+  localStorage.clear()
 })
 
 it('backgroundRefresh смена фона', async () => {
@@ -41,6 +42,8 @@ it('backgroundRefresh смена фона', async () => {
     status: 200,
     json: async () => ({ urls: { raw: rawUrl } }),
   })
+
+  useBackgroundStore().setAccessKey('test-access-key')
 
   const wrapper = mount(BackgroundRefresh, { shallow: true })
   expect(wrapper.find('button-icon-stub').exists()).toBe(true)

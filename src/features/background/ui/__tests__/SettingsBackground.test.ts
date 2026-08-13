@@ -18,6 +18,7 @@ it('рендер пустого SettingsBackground', async () => {
       ],
     },
   })
+  expect(wrapper.findComponent({ name: 'FormUnsplashKey' }).exists()).toBe(true)
   expect(wrapper.findComponent({ name: 'FormAddTag' }).exists()).toBe(true)
   expect(wrapper.find('.tags').exists()).toBe(true)
 

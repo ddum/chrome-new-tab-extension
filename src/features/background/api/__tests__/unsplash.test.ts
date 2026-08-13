@@ -36,17 +36,29 @@ it('fetchRandomPhoto запрашивает случайное фото Unsplash
     json: async () => ({ urls: { raw: rawUrl } }),
   })
 
-  const url = await fetchRandomPhoto({ tags: ['a', 'b'], size: [100, 200] })
+  const url = await fetchRandomPhoto({
+    accessKey: 'test-access-key',
+    tags: ['a', 'b'],
+    size: [100, 200],
+  })
 
   const called = String(vi.mocked(fetch).mock.calls[0]?.[0])
   expect(called).toContain(`${UNSPLASH_API_ORIGIN}/photos/random/`)
+  expect(called).toContain('client_id=test-access-key')
   expect(called).toContain('query=a%2Cb')
   expect(called).toContain('orientation=landscape')
   expect(url).toContain('w=100')
   expect(url).toContain('h=200')
 })
 
+it('fetchRandomPhoto возвращает пустую строку и не вызывает fetch без ключа', async () => {
+  globalThis.fetch = vi.fn()
+  expect(await fetchRandomPhoto()).toBe('')
+  expect(await fetchRandomPhoto({ accessKey: '' })).toBe('')
+  expect(fetch).not.toHaveBeenCalled()
+})
+
 it('fetchRandomPhoto возвращает пустую строку, если ответ не 200', async () => {
   globalThis.fetch = vi.fn().mockResolvedValue({ status: 404 })
-  expect(await fetchRandomPhoto()).toBe('')
+  expect(await fetchRandomPhoto({ accessKey: 'test-access-key' })).toBe('')
 })

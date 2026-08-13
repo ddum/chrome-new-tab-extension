@@ -1,6 +1,7 @@
 export interface BackgroundValue {
   url: string
   tags: string[]
+  accessKey: string
 }
 
 export interface LinkItem {
@@ -21,6 +22,7 @@ export const STORAGE_DEFAULT_VALUE: AppValue = {
   background: {
     url: '',
     tags: [],
+    accessKey: '',
   },
   links: {
     items: [],

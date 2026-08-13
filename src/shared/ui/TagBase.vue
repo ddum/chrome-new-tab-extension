@@ -45,8 +45,6 @@ const emit = defineEmits<{
   border-radius: var(--element-tag-border-radius);
   box-sizing: border-box;
   white-space: nowrap;
-  margin-right: 8px;
-  margin-top: 8px;
 }
 
 .tag__button {

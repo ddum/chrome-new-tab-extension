@@ -1,6 +1,7 @@
-import { UNSPLASH_ACCESS_KEY, UNSPLASH_API_ORIGIN } from '@/shared/config/app'
+import { UNSPLASH_API_ORIGIN } from '@/shared/config/app'
 
 export interface FetchRandomPhotoOptions {
+  accessKey?: string
   tags?: string[]
   size?: number[]
 }
@@ -16,9 +17,13 @@ function preloadImage(url: string): Promise<HTMLImageElement> {
 }
 
 export async function fetchRandomPhoto(options: FetchRandomPhotoOptions = {}): Promise<string> {
+  if (!options.accessKey) {
+    return ''
+  }
+
   try {
     const urlApi = new URL(`${UNSPLASH_API_ORIGIN}/photos/random/`)
-    urlApi.searchParams.append('client_id', UNSPLASH_ACCESS_KEY)
+    urlApi.searchParams.append('client_id', options.accessKey)
     urlApi.searchParams.append('orientation', 'landscape')
 
     if (options.tags && options.tags.length > 0) {
