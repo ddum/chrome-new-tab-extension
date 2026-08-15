@@ -2,7 +2,7 @@ import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 
 import App from './App.vue'
-import './styles/base.css'
+import './main.css'
 
 import 'floating-vue/dist/style.css'
 
