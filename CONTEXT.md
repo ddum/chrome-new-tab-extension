@@ -23,7 +23,6 @@ Persisted preferences are one JSON snapshot `{ background, links }` in `localSto
 | `src/shared/ui/` | Reusable controls and table primitives. |
 | `src/shared/lib/` | `useStorage`, `useAppSnapshot`, `useFileSystem`, persist types. |
 | `src/shared/config/app.ts` | Storage key, Unsplash origin, locale. |
-| `src/shared/assets/` | SVG icons used by UI. |
 | `public/manifest.json` | MV3 identity and new-tab override. |
 | `scripts/sync-version.js` | Copies package version into the extension manifest. |
 
