@@ -8,9 +8,8 @@ it('formUnsplashKey рендер поля ввода', () => {
     props: { modelValue: '' },
   })
 
-  const input = wrapper.findComponent({ name: 'InputBase' })
-  expect(input.exists()).toBe(true)
-  expect(input.props().type).toBe('password')
+  const input = wrapper.get('input')
+  expect(input.attributes('type')).toBe('password')
 
   expect(wrapper.find('button').exists()).toBe(false)
 })
@@ -20,7 +19,7 @@ it('formUnsplashKey сохраняет ключ при вводе', async () => 
     props: { modelValue: '' },
   })
 
-  const input = wrapper.findComponent({ name: 'InputBase' })
+  const input = wrapper.get('input')
 
   await input.setValue('test-access-key')
 
@@ -32,7 +31,7 @@ it('formUnsplashKey сохраняет пустую строку при очис
     props: { modelValue: 'test-access-key' },
   })
 
-  const input = wrapper.findComponent({ name: 'InputBase' })
+  const input = wrapper.get('input')
 
   await input.setValue('')
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import InputBase from '@/shared/ui/InputBase.vue'
+import { Input } from '@/shared/ui/input'
 
 const props = defineProps<{
   modelValue: string
@@ -9,13 +9,13 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-function updateValue(value: string | undefined) {
-  emit('update:modelValue', value ?? '')
+function updateValue(value: string | number) {
+  emit('update:modelValue', String(value))
 }
 </script>
 
 <template>
-  <InputBase
+  <Input
     :model-value="props.modelValue"
     type="password"
     placeholder="Unsplash Access Key"

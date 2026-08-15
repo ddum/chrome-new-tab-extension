@@ -9,8 +9,8 @@ it('formAddLink рендер формы', async () => {
   const form = wrapper.find<HTMLInputElement>('.form')
   expect(form.exists()).toBe(true)
 
-  const inputComponents = wrapper.findAllComponents({ name: 'InputBase' })
-  expect(inputComponents).toHaveLength(2)
+  const inputs = wrapper.findAll('input')
+  expect(inputs).toHaveLength(2)
 
   const button = wrapper.get('button')
   expect(button.text()).toBe('Добавить')
@@ -22,10 +22,10 @@ it('formAddLink события на форме', async () => {
 
   const form = wrapper.find<HTMLInputElement>('.form')
 
-  const inputLink = wrapper.find<HTMLInputElement>('.link')
+  const inputLink = wrapper.get<HTMLInputElement>('#add-link-url')
   await inputLink.setValue('link')
 
-  const inputTitle = wrapper.find<HTMLInputElement>('.title')
+  const inputTitle = wrapper.get<HTMLInputElement>('#add-link-title')
   await inputTitle.setValue('title')
 
   await form.trigger('submit')

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 import { Button } from '@/shared/ui/button'
-import InputBase from '@/shared/ui/InputBase.vue'
+import { Input } from '@/shared/ui/input'
 
 const emit = defineEmits<{
   submit: [url: string, title: string]
@@ -23,16 +23,16 @@ function submitHandler() {
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <div class="form__row">
-      <div class="form__row-title">
+      <label class="form__row-title" for="add-link-url">
         Ссылка
-      </div>
-      <InputBase v-model.trim="link" class="link" />
+      </label>
+      <Input id="add-link-url" v-model.trim="link" />
     </div>
     <div class="form__row">
-      <div class="form__row-title">
+      <label class="form__row-title" for="add-link-title">
         Заголовок
-      </div>
-      <InputBase v-model.trim="title" class="title" />
+      </label>
+      <Input id="add-link-title" v-model.trim="title" />
     </div>
     <div class="form__row">
       <Button type="submit" size="sm">
