@@ -12,9 +12,9 @@ it('formAddTag рендер формы', async () => {
   const input = wrapper.findComponent({ name: 'InputBase' })
   expect(input.exists()).toBe(true)
 
-  const button = wrapper.findComponent({ name: 'ButtonBase' })
-  expect(button.exists()).toBe(true)
-  expect(button.props().type).toBe('submit')
+  const button = wrapper.get('button')
+  expect(button.text()).toBe('Добавить')
+  expect(button.attributes('type')).toBe('submit')
 })
 
 it('formAddTag события на форме', async () => {

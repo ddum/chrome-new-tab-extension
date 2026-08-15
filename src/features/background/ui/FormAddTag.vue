@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
+import { Button } from '@/shared/ui/button'
 import InputBase from '@/shared/ui/InputBase.vue'
 
 const emit = defineEmits<{
@@ -21,9 +21,9 @@ function submitHandler() {
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <InputBase v-model.trim="tagInput" placeholder="Тег изображения" />
-    <ButtonBase type="submit" class="form__button">
+    <Button type="submit" size="sm">
       Добавить
-    </ButtonBase>
+    </Button>
   </form>
 </template>
 
@@ -31,8 +31,6 @@ function submitHandler() {
 .form {
   display: flex;
   align-items: center;
-}
-.form__button {
-  margin-left: 15px;
+  gap: 15px;
 }
 </style>

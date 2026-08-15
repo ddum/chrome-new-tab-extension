@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useLinksStore } from '@/features/links/model/store'
 import FormAddLink from '@/features/links/ui/FormAddLink.vue'
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
+import { Button } from '@/shared/ui/button'
 import LinkFavicon from '@/shared/ui/LinkFavicon.vue'
 import Table from '@/shared/ui/table/TableBase.vue'
 import TableCell from '@/shared/ui/table/TableCellBase.vue'
@@ -22,9 +22,14 @@ const linksStore = useLinksStore()
         </TableCell>
         <TableCell>{{ link.title }}</TableCell>
         <TableCell align="right">
-          <ButtonBase @click="linksStore.deleteLink(link.url)">
+          <Button
+            type="button"
+            variant="destructive"
+            size="sm"
+            @click="linksStore.deleteLink(link.url)"
+          >
             Удалить
-          </ButtonBase>
+          </Button>
         </TableCell>
       </TableRow>
     </Table>

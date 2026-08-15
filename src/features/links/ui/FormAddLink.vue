@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
+import { Button } from '@/shared/ui/button'
 import InputBase from '@/shared/ui/InputBase.vue'
 
 const emit = defineEmits<{
@@ -35,9 +35,9 @@ function submitHandler() {
       <InputBase v-model.trim="title" class="title" />
     </div>
     <div class="form__row">
-      <ButtonBase type="submit">
+      <Button type="submit" size="sm">
         Добавить
-      </ButtonBase>
+      </Button>
     </div>
   </form>
 </template>

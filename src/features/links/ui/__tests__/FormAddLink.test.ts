@@ -12,9 +12,9 @@ it('formAddLink рендер формы', async () => {
   const inputComponents = wrapper.findAllComponents({ name: 'InputBase' })
   expect(inputComponents).toHaveLength(2)
 
-  const button = wrapper.findComponent({ name: 'ButtonBase' })
-  expect(button.exists()).toBe(true)
-  expect(button.props().type).toBe('submit')
+  const button = wrapper.get('button')
+  expect(button.text()).toBe('Добавить')
+  expect(button.attributes('type')).toBe('submit')
 })
 
 it('formAddLink события на форме', async () => {

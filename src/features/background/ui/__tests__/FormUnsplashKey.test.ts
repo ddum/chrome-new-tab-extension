@@ -12,8 +12,7 @@ it('formUnsplashKey рендер поля ввода', () => {
   expect(input.exists()).toBe(true)
   expect(input.props().type).toBe('password')
 
-  const button = wrapper.findComponent({ name: 'ButtonBase' })
-  expect(button.exists()).toBe(false)
+  expect(wrapper.find('button').exists()).toBe(false)
 })
 
 it('formUnsplashKey сохраняет ключ при вводе', async () => {

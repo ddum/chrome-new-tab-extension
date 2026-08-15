@@ -1,12 +1,11 @@
 <script lang="ts" setup>
+import { Download, Upload } from '@lucide/vue'
+
 import type { CategoryItem } from '@/features/settings/model/types'
 
 import { useSettingsBackup } from '@/features/settings/model/backup'
-import IconExport from '@/shared/assets/img/icons/export.svg?component'
-import IconImport from '@/shared/assets/img/icons/import.svg?component'
 import useFileSystem from '@/shared/lib/useFileSystem'
-import ButtonBase from '@/shared/ui/ButtonBase.vue'
-import IconBase from '@/shared/ui/IconBase.vue'
+import { Button } from '@/shared/ui/button'
 
 const props = defineProps<{
   menuItems: CategoryItem[]
@@ -60,17 +59,25 @@ async function exportData() {
         </button>
       </li>
     </ul>
-    <div class="menu-buttons">
-      <ButtonBase class="menu-buttons__item" @click="importData">
-        Import <IconBase class="menu-buttons__icon" size="s1">
-          <IconImport />
-        </IconBase>
-      </ButtonBase>
-      <ButtonBase class="menu-buttons__item" @click="exportData">
-        Export <IconBase class="menu-buttons__icon" size="s1">
-          <IconExport />
-        </IconBase>
-      </ButtonBase>
+    <div class="flex flex-col gap-2">
+      <Button
+        class="w-full"
+        variant="outline"
+        size="sm"
+        @click="importData"
+      >
+        Import
+        <Download class="size-4" data-icon="inline-end" />
+      </Button>
+      <Button
+        class="w-full"
+        variant="outline"
+        size="sm"
+        @click="exportData"
+      >
+        Export
+        <Upload class="size-4" data-icon="inline-end" />
+      </Button>
     </div>
   </div>
 </template>
@@ -98,17 +105,5 @@ async function exportData() {
 .menu__button:hover,
 .menu__button_active {
   color: var(--settings-text-color-hover);
-}
-
-.menu-buttons {
-  display: flex;
-  flex-direction: column;
-}
-.menu-buttons__item {
-  width: 100%;
-  margin: 5px 0;
-}
-.menu-buttons__icon {
-  margin-left: 10px;
 }
 </style>

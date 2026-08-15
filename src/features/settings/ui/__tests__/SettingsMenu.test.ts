@@ -30,11 +30,8 @@ it('settingsMenu - кнопки импорта/экспорта', async () => {
       menuItems,
       activeMenuItem: menuItems[0],
     },
-    global: {
-      stubs: { IconBase: { template: '<span>icon</span>', props: ['size'] } },
-    },
   })
 
-  expect(wrapper.text()).toMatch('Import icon')
-  expect(wrapper.text()).toMatch('Export icon')
+  expect(wrapper.text()).toContain('Import')
+  expect(wrapper.text()).toContain('Export')
 })
