@@ -5,25 +5,12 @@ const { timeString, dateString } = useDateTime()
 </script>
 
 <template>
-  <div class="time">
-    {{ timeString }}
-  </div>
-  <div class="date">
-    {{ dateString }}
+  <div class="text-center font-bold text-white">
+    <div class="text-[180px] leading-none">
+      {{ timeString }}
+    </div>
+    <div class="text-[23px]">
+      {{ dateString }}
+    </div>
   </div>
 </template>
-
-<style scoped>
-.time {
-  text-align: center;
-  line-height: 1;
-  font-size: 180px;
-  font-weight: bold;
-  color: var(--color-text);
-}
-.date {
-  text-align: center;
-  font-size: 23px;
-  font-weight: bold;
-}
-</style>

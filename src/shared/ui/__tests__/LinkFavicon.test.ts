@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
-import LinkFavicon from '../LinkFavicon.vue'
+import { LinkFavicon } from '../link-favicon'
 
 function googleFaviconSrc(domain: string) {
   return `https://www.google.com/s2/favicons?sz=32&domain=${domain}`

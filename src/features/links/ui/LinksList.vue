@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { LinkItem } from '@/features/links/model/types'
 
-import LinkFavicon from '@/shared/ui/LinkFavicon.vue'
+import { LinkFavicon } from '@/shared/ui/link-favicon'
 
 interface Props {
   links: LinkItem[]
@@ -11,45 +11,17 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="links">
-    <div v-for="link in props.links" :key="link.url" class="links__item">
-      <a :href="link.url" class="links__link">
-        <div class="links__favicon"><LinkFavicon :domain="link.url" /></div>
-        <div class="links__title">
-          {{ link.title }}
-        </div>
-      </a>
-    </div>
+  <div class="flex flex-col gap-1.5">
+    <a
+      v-for="link in props.links"
+      :key="link.url"
+      :href="link.url"
+      class="flex items-center gap-2 text-base text-white no-underline"
+    >
+      <LinkFavicon :domain="link.url" class="size-5" />
+      <div class="text-shadow-[0_0_17px_black]">
+        {{ link.title }}
+      </div>
+    </a>
   </div>
 </template>
-
-<style scoped>
-.links {
-  display: flex;
-  flex-direction: column;
-}
-.links__item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 3px 0;
-}
-
-.links__link {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: var(--c-white);
-  text-decoration: none;
-}
-
-.links__favicon {
-  height: 20px;
-  width: 20px;
-  margin-right: 10px;
-}
-
-.links__title {
-  text-shadow: 0px 0px 17px var(--c-black);
-}
-</style>

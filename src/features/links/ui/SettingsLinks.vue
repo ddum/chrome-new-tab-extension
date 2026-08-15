@@ -2,7 +2,7 @@
 import { useLinksStore } from '@/features/links/model/store'
 import FormAddLink from '@/features/links/ui/FormAddLink.vue'
 import { Button } from '@/shared/ui/button'
-import LinkFavicon from '@/shared/ui/LinkFavicon.vue'
+import { LinkFavicon } from '@/shared/ui/link-favicon'
 import Table from '@/shared/ui/table/TableBase.vue'
 import TableCell from '@/shared/ui/table/TableCellBase.vue'
 import TableRow from '@/shared/ui/table/TableRowBase.vue'

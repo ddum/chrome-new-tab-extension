@@ -1,11 +1,14 @@
-<script lang="ts" setup>
+<script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+
 import { computed } from 'vue'
 
-interface Props {
-  domain: string
-}
+import { cn } from '@/shared/lib/utils'
 
-const props = defineProps<Props>()
+const props = defineProps<{
+  domain: string
+  class?: HTMLAttributes['class']
+}>()
 
 const hostname = computed(() => {
   try {
@@ -25,15 +28,7 @@ const faviconSrc = computed(
 <template>
   <img
     :src="faviconSrc"
-    class="icon-favicon"
+    alt=""
+    :class="cn('size-full max-h-8 max-w-8', props.class)"
   >
 </template>
-
-<style scoped>
-.icon-favicon {
-  width: 100%;
-  height: 100%;
-  max-width: 32px;
-  max-height: 32px;
-}
-</style>

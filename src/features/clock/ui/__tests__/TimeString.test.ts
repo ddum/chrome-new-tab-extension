@@ -3,8 +3,7 @@ import { expect } from 'vitest'
 
 import TimeString from '../TimeString.vue'
 
-it('timeString - рендер', async () => {
+it('timeString - рендер', () => {
   const wrapper = mount(TimeString)
-  expect(wrapper.find('.time').exists()).toBe(true)
-  expect(wrapper.find('.date').exists()).toBe(true)
+  expect(wrapper.text()).toMatch(/\d{2}:\d{2}/)
 })
