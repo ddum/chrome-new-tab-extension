@@ -2,7 +2,7 @@ import antfu from '@antfu/eslint-config'
 
 export default antfu(
   {
-    imports: {
+    perfectionist: {
       overrides: {
         'perfectionist/sort-imports': [
           'error',
