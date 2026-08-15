@@ -6,7 +6,7 @@ import FormAddLink from '../FormAddLink.vue'
 it('formAddLink рендер формы', async () => {
   const wrapper = mount(FormAddLink)
 
-  const form = wrapper.find<HTMLInputElement>('.form')
+  const form = wrapper.find('form')
   expect(form.exists()).toBe(true)
 
   const inputs = wrapper.findAll('input')
@@ -20,7 +20,7 @@ it('formAddLink рендер формы', async () => {
 it('formAddLink события на форме', async () => {
   const wrapper = mount(FormAddLink)
 
-  const form = wrapper.find<HTMLInputElement>('.form')
+  const form = wrapper.find('form')
 
   const inputLink = wrapper.get<HTMLInputElement>('#add-link-url')
   await inputLink.setValue('link')

@@ -19,9 +19,8 @@ it('рендер пустого SettingsLinks', async () => {
     },
   })
   expect(wrapper.findComponent({ name: 'FormAddLink' }).exists()).toBe(true)
-  expect(wrapper.find('.links').exists()).toBe(true)
-  expect(wrapper.findComponent({ name: 'Table' }).exists()).toBe(true)
-  expect(wrapper.findAll('.table__row')).toHaveLength(0)
+  expect(wrapper.findAll('[data-slot="item"]')).toHaveLength(0)
+  expect(wrapper.findAll('button[aria-label="Удалить"]')).toHaveLength(0)
 })
 
 it('рендер SettingsLinks', async () => {
@@ -34,5 +33,8 @@ it('рендер SettingsLinks', async () => {
   linksStore.addLink('url1', 'title1')
 
   await nextTick()
-  expect(wrapper.findAll('.table__row')).toHaveLength(2)
+  expect(wrapper.text()).toContain('title')
+  expect(wrapper.text()).toContain('title1')
+  expect(wrapper.findAll('[data-slot="item"]')).toHaveLength(2)
+  expect(wrapper.findAll('button[aria-label="Удалить"]')).toHaveLength(2)
 })

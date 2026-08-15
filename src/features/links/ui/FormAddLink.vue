@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 import { Button } from '@/shared/ui/button'
+import { Field, FieldGroup, FieldLabel } from '@/shared/ui/field'
 import { Input } from '@/shared/ui/input'
 
 const emit = defineEmits<{
@@ -21,46 +22,25 @@ function submitHandler() {
 </script>
 
 <template>
-  <form class="form" @submit.prevent="submitHandler">
-    <div class="form__row">
-      <label class="form__row-title" for="add-link-url">
-        Ссылка
-      </label>
-      <Input id="add-link-url" v-model.trim="link" />
-    </div>
-    <div class="form__row">
-      <label class="form__row-title" for="add-link-title">
-        Заголовок
-      </label>
-      <Input id="add-link-title" v-model.trim="title" />
-    </div>
-    <div class="form__row">
-      <Button type="submit" size="sm">
-        Добавить
-      </Button>
-    </div>
+  <form @submit.prevent="submitHandler">
+    <FieldGroup>
+      <Field>
+        <FieldLabel for="add-link-url">
+          Ссылка
+        </FieldLabel>
+        <Input id="add-link-url" v-model.trim="link" />
+      </Field>
+      <Field>
+        <FieldLabel for="add-link-title">
+          Заголовок
+        </FieldLabel>
+        <Input id="add-link-title" v-model.trim="title" />
+      </Field>
+      <Field>
+        <Button type="submit" size="sm">
+          Добавить
+        </Button>
+      </Field>
+    </FieldGroup>
   </form>
 </template>
-
-<style scoped>
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.form__row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.form__row-title {
-  width: 30%;
-  margin-right: 15px;
-  font-size: var(--font-size-base);
-  color: var(--c-black);
-}
-</style>
