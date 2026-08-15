@@ -1,14 +1,10 @@
 <script lang="ts" setup>
-import FloatingVue from 'floating-vue'
-
 import { useBackgroundStore } from '@/features/background/model/store'
 import BackgroundRefresh from '@/features/background/ui/BackgroundRefresh.vue'
 import TimeString from '@/features/clock/ui/TimeString.vue'
 import { useLinksStore } from '@/features/links/model/store'
 import LinksList from '@/features/links/ui/LinksList.vue'
 import SettingsButton from '@/features/settings/ui/SettingsButton.vue'
-
-FloatingVue.options.overflowPadding = 12
 
 const backgroundStore = useBackgroundStore()
 const linksStore = useLinksStore()

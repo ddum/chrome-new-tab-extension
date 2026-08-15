@@ -45,10 +45,11 @@ it('backgroundRefresh смена фона', async () => {
 
   useBackgroundStore().setAccessKey('test-access-key')
 
-  const wrapper = mount(BackgroundRefresh, { shallow: true })
-  expect(wrapper.find('button-icon-stub').exists()).toBe(true)
+  const wrapper = mount(BackgroundRefresh)
+  const button = wrapper.get('button')
+  expect(button.attributes('aria-label')).toBe('Обновить фон')
 
-  await wrapper.get('button-icon-stub').trigger('click')
+  await button.trigger('click')
   await flushPromises()
 
   const expected = new URL(rawUrl)

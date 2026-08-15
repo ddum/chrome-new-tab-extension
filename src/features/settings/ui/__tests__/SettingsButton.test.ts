@@ -1,11 +1,16 @@
 import { mount } from '@vue/test-utils'
-import { expect } from 'vitest'
+import { afterEach, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 
 import SettingsButton from '../SettingsButton.vue'
 
-it('settingsButton рендер', async () => {
+afterEach(() => {
+  document.body.innerHTML = ''
+})
+
+it('settingsButton открывает настройки', async () => {
   const wrapper = mount(SettingsButton, {
+    attachTo: document.body,
     global: {
       stubs: {
         SettingsWrap: {
@@ -15,14 +20,14 @@ it('settingsButton рендер', async () => {
     },
   })
 
-  const button = wrapper.findComponent({ name: 'ButtonIcon' })
-  expect(wrapper.findComponent({ name: 'VDropdown' }).exists()).toBe(true)
-  expect(button.exists()).toBe(true)
+  const button = wrapper.get('button')
+  expect(button.attributes('aria-label')).toBe('Открыть настройки')
+  expect(document.querySelector('.settings-wrap')).toBeNull()
 
   await button.trigger('click')
   await nextTick()
 
-  requestAnimationFrame(() => {
-    expect(document.querySelector('.settings-wrap')).not.toBeNull()
-  })
+  expect(document.querySelector('.settings-wrap')).not.toBeNull()
+
+  wrapper.unmount()
 })

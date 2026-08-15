@@ -1,11 +1,16 @@
 <script lang="ts" setup>
-import { vTooltip } from 'floating-vue'
+import { RefreshCw } from '@lucide/vue'
 
 import { useBackgroundStore } from '@/features/background/model/store'
 import { useRandomBackground } from '@/features/background/model/useRandomBackground'
-import IconRefresh from '@/shared/assets/img/icons/refresh.svg?component'
-import ButtonIcon from '@/shared/ui/ButtonIcon.vue'
-import IconBase from '@/shared/ui/IconBase.vue'
+import { cn } from '@/shared/lib/utils'
+import { Button } from '@/shared/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/shared/ui/tooltip'
 
 const backgroundStore = useBackgroundStore()
 const { imgUrl, isLoading, random } = useRandomBackground()
@@ -23,9 +28,27 @@ async function randomBackground() {
 </script>
 
 <template>
-  <ButtonIcon v-tooltip="'Обновить фон'" :rotate="isLoading" @click="randomBackground">
-    <IconBase>
-      <IconRefresh />
-    </IconBase>
-  </ButtonIcon>
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger as-child>
+        <Button
+          variant="overlay"
+          size="icon-lg"
+          class="group rounded-full"
+          aria-label="Обновить фон"
+          @click="randomBackground"
+        >
+          <RefreshCw
+            :class="cn(
+              'transition-transform duration-200 group-hover:rotate-90',
+              isLoading && 'animate-spin',
+            )"
+          />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="top" align="end">
+        Обновить фон
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 </template>
