@@ -20,30 +20,13 @@ describe('backgroundStore', () => {
     expect(backgroundStore.url).toBe('test')
   })
 
-  it('добавляет тег', () => {
+  it('устанавливает теги', () => {
     const backgroundStore = useBackgroundStore()
     expect(backgroundStore.tags).toEqual([])
-    backgroundStore.addTag('a')
+    backgroundStore.setTags(['a'])
     expect(backgroundStore.tags).toEqual(['a'])
-    backgroundStore.addTag('b')
+    backgroundStore.setTags(['a', 'b'])
     expect(backgroundStore.tags).toEqual(['a', 'b'])
-  })
-
-  it('не добавляет пустые и дублирующиеся теги', () => {
-    const backgroundStore = useBackgroundStore()
-    backgroundStore.addTag('a')
-    backgroundStore.addTag('')
-    backgroundStore.addTag('a')
-    expect(backgroundStore.tags).toEqual(['a'])
-  })
-
-  it('удаляет тег', () => {
-    const backgroundStore = useBackgroundStore()
-    backgroundStore.addTag('a')
-    backgroundStore.addTag('b')
-    backgroundStore.addTag('c')
-    backgroundStore.deleteTag('b')
-    expect(backgroundStore.tags).toEqual(['a', 'c'])
   })
 
   it('сохраняет accessKey', () => {

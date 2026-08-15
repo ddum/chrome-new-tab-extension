@@ -3,29 +3,66 @@ import { expect } from 'vitest'
 
 import FormAddTag from '../FormAddTag.vue'
 
-it('formAddTag рендер формы', async () => {
-  const wrapper = mount(FormAddTag)
+it('formAddTag рендер поля ввода тегов', () => {
+  const wrapper = mount(FormAddTag, {
+    props: { modelValue: [] },
+  })
 
-  const form = wrapper.find<HTMLInputElement>('.form')
-  expect(form.exists()).toBe(true)
-
-  const input = wrapper.findComponent({ name: 'InputBase' })
-  expect(input.exists()).toBe(true)
-
-  const button = wrapper.get('button')
-  expect(button.text()).toBe('Добавить')
-  expect(button.attributes('type')).toBe('submit')
+  const input = wrapper.get('input')
+  expect(input.attributes('placeholder')).toBe('Тег изображения')
+  expect(wrapper.find('button').exists()).toBe(false)
 })
 
-it('formAddTag события на форме', async () => {
-  const wrapper = mount(FormAddTag)
+it('formAddTag показывает существующие теги', () => {
+  const wrapper = mount(FormAddTag, {
+    props: { modelValue: ['nature', 'ocean'] },
+  })
 
-  const form = wrapper.find<HTMLInputElement>('.form')
-  const input = wrapper.findComponent({ name: 'InputBase' })
+  expect(wrapper.text()).toContain('nature')
+  expect(wrapper.text()).toContain('ocean')
+  expect(wrapper.findAll('button')).toHaveLength(2)
+})
 
-  await input.setValue('testTag')
-  await form.trigger('submit')
+it('formAddTag добавляет тег по Enter', async () => {
+  const wrapper = mount(FormAddTag, {
+    props: { modelValue: [] },
+  })
 
-  expect(wrapper.emitted()).toHaveProperty('submit')
-  expect(wrapper.emitted('submit')).toEqual([['testTag']])
+  const input = wrapper.get('input')
+  await input.setValue('nature')
+  await input.trigger('keydown.enter')
+
+  expect(wrapper.emitted('update:modelValue')).toEqual([[['nature']]])
+})
+
+it('formAddTag не добавляет пустой тег', async () => {
+  const wrapper = mount(FormAddTag, {
+    props: { modelValue: [] },
+  })
+
+  await wrapper.get('input').trigger('keydown.enter')
+
+  expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+})
+
+it('formAddTag не добавляет дублирующийся тег', async () => {
+  const wrapper = mount(FormAddTag, {
+    props: { modelValue: ['nature'] },
+  })
+
+  const input = wrapper.get('input')
+  await input.setValue('nature')
+  await input.trigger('keydown.enter')
+
+  expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+})
+
+it('formAddTag удаляет тег', async () => {
+  const wrapper = mount(FormAddTag, {
+    props: { modelValue: ['nature'] },
+  })
+
+  await wrapper.get('button').trigger('click')
+
+  expect(wrapper.emitted('update:modelValue')).toEqual([[[]]])
 })

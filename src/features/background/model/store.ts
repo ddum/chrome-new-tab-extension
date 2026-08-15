@@ -18,16 +18,8 @@ export const useBackgroundStore = defineStore('background', () => {
     appValue.value.background.accessKey = value
   }
 
-  function addTag(value: string) {
-    if (value === '' || appValue.value.background.tags.includes(value)) {
-      return
-    }
-
-    appValue.value.background.tags.push(value)
-  }
-
-  function deleteTag(tag: string) {
-    appValue.value.background.tags = appValue.value.background.tags.filter(item => item !== tag)
+  function setTags(value: string[]) {
+    appValue.value.background.tags = value
   }
 
   return {
@@ -36,7 +28,6 @@ export const useBackgroundStore = defineStore('background', () => {
     accessKey,
     setUrl,
     setAccessKey,
-    addTag,
-    deleteTag,
+    setTags,
   }
 })

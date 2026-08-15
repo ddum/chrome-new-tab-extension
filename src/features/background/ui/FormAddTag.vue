@@ -1,36 +1,26 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {
+  TagsInput,
+  TagsInputInput,
+  TagsInputItem,
+  TagsInputItemDelete,
+  TagsInputItemText,
+} from '@/shared/ui/tags-input'
 
-import { Button } from '@/shared/ui/button'
-import InputBase from '@/shared/ui/InputBase.vue'
-
-const emit = defineEmits<{
-  submit: [value: string]
-}>()
-
-const tagInput = ref('')
-
-function submitHandler() {
-  if (tagInput.value !== '') {
-    emit('submit', tagInput.value)
-    tagInput.value = ''
-  }
-}
+const tags = defineModel<string[]>({ default: () => [] })
 </script>
 
 <template>
-  <form class="form" @submit.prevent="submitHandler">
-    <InputBase v-model.trim="tagInput" placeholder="Тег изображения" />
-    <Button type="submit" size="sm">
-      Добавить
-    </Button>
-  </form>
-</template>
+  <TagsInput v-model="tags">
+    <TagsInputItem
+      v-for="item in tags"
+      :key="item"
+      :value="item"
+    >
+      <TagsInputItemText />
+      <TagsInputItemDelete />
+    </TagsInputItem>
 
-<style scoped>
-.form {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-</style>
+    <TagsInputInput placeholder="Тег изображения" />
+  </TagsInput>
+</template>

@@ -20,9 +20,7 @@ it('рендер пустого SettingsBackground', async () => {
   })
   expect(wrapper.findComponent({ name: 'FormUnsplashKey' }).exists()).toBe(true)
   expect(wrapper.findComponent({ name: 'FormAddTag' }).exists()).toBe(true)
-  expect(wrapper.find('.tags').exists()).toBe(true)
-
-  expect(wrapper.findAllComponents({ name: 'TagBase' })).toHaveLength(0)
+  expect(wrapper.findComponent({ name: 'FormAddTag' }).props('modelValue')).toEqual([])
 })
 
 it('рендер SettingsBackground', async () => {
@@ -31,9 +29,9 @@ it('рендер SettingsBackground', async () => {
   const wrapper = mount(SettingsBackground)
 
   const backgroundStore = useBackgroundStore()
-  backgroundStore.addTag('test')
-  backgroundStore.addTag('test2')
+  backgroundStore.setTags(['test', 'test2'])
 
   await nextTick()
-  expect(wrapper.findAllComponents({ name: 'TagBase' })).toHaveLength(2)
+  expect(wrapper.text()).toContain('test')
+  expect(wrapper.text()).toContain('test2')
 })
