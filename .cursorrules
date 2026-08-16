@@ -1,0 +1,6 @@
+When generating a Git commit message for this repository:
+
+- Write the entire message in Russian.
+- Keep it short: one subject line, about 50–60 characters, no period at the end.
+- Add a body only if the change is non-obvious; then 1–2 short sentences, not a file-by-file restatement of the diff.
+- Prefer imperative mood (добавить, исправить, вынести, упростить).

@@ -1,0 +1,7 @@
+export { default as Layout } from './Layout.vue'
+export { default as LayoutBar } from './LayoutBar.vue'
+export { default as LayoutCenter } from './LayoutCenter.vue'
+export { default as LayoutFooter } from './LayoutFooter.vue'
+export { default as LayoutHeader } from './LayoutHeader.vue'
+export { default as LayoutLeft } from './LayoutLeft.vue'
+export { default as LayoutRight } from './LayoutRight.vue'
