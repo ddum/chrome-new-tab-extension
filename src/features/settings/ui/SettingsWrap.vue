@@ -21,7 +21,7 @@ const SettingsLinks = defineAsyncComponent(() =>
     orientation="vertical"
     class="flex h-125 w-150 flex-row gap-6 p-3"
   >
-    <div class="flex w-38 shrink-0 flex-col">
+    <div class="flex w-28 shrink-0 flex-col">
       <SettingsMenu />
     </div>
     <Separator orientation="vertical" />

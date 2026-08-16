@@ -24,20 +24,30 @@ function submitHandler() {
 <template>
   <form @submit.prevent="submitHandler">
     <FieldGroup>
-      <Field>
-        <FieldLabel for="add-link-url">
-          Ссылка
-        </FieldLabel>
-        <Input id="add-link-url" v-model.trim="link" />
-      </Field>
-      <Field>
-        <FieldLabel for="add-link-title">
-          Заголовок
-        </FieldLabel>
-        <Input id="add-link-title" v-model.trim="title" />
-      </Field>
-      <Field>
-        <Button type="submit" size="sm">
+      <FieldGroup class="flex-row gap-2">
+        <Field class="min-w-0">
+          <FieldLabel for="add-link-url">
+            Ссылка
+          </FieldLabel>
+          <Input
+            id="add-link-url"
+            v-model.trim="link"
+            placeholder="https://"
+          />
+        </Field>
+        <Field class="min-w-0">
+          <FieldLabel for="add-link-title">
+            Заголовок
+          </FieldLabel>
+          <Input
+            id="add-link-title"
+            v-model.trim="title"
+            placeholder="Название"
+          />
+        </Field>
+      </FieldGroup>
+      <Field orientation="horizontal">
+        <Button type="submit">
           Добавить
         </Button>
       </Field>
