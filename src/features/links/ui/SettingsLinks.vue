@@ -10,7 +10,6 @@ import {
   ItemContent,
   ItemGroup,
   ItemMedia,
-  ItemSeparator,
   ItemTitle,
 } from '@/shared/ui/item'
 import { LinkFavicon } from '@/shared/ui/link-favicon'

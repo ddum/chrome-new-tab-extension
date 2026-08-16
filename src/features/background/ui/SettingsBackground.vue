@@ -7,7 +7,7 @@ const backgroundStore = useBackgroundStore()
 </script>
 
 <template>
-  <div class="background-settings">
+  <div class="flex flex-col gap-4">
     <FormUnsplashKey
       :model-value="backgroundStore.accessKey"
       @update:model-value="backgroundStore.setAccessKey"
@@ -18,11 +18,3 @@ const backgroundStore = useBackgroundStore()
     />
   </div>
 </template>
-
-<style scoped>
-.background-settings {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-</style>
