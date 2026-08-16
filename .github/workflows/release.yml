@@ -9,14 +9,14 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install dependencies
         run: npm ci
@@ -40,11 +40,9 @@ jobs:
             echo "## Changelog"
             echo ""
             if [ -n "${previous}" ]; then
-              echo "Changes since \`${previous}\`:"
-              echo ""
-              git log --pretty=format:'- %s (%h)' "${previous}..${current}"
+              git log --pretty=format:'- %s (%h)' --extended-regexp --grep='^v?[0-9]+\.[0-9]+\.[0-9]+$' --invert-grep "${previous}..${current}"
             else
-              git log --pretty=format:'- %s (%h)' "${current}"
+              git log --pretty=format:'- %s (%h)' --extended-regexp --grep='^v?[0-9]+\.[0-9]+\.[0-9]+$' --invert-grep "${current}"
             fi
             echo ""
           } > release-notes.md
@@ -61,7 +59,7 @@ jobs:
             chrome-new-tab-extension-${{ github.ref_name }}.zip
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           path: |
             chrome-new-tab-extension-${{ github.ref_name }}.zip
