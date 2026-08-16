@@ -1,37 +1,28 @@
 import { mount } from '@vue/test-utils'
-import { createPinia, setActivePinia } from 'pinia'
-import { expect } from 'vitest'
+import { expect, it } from 'vitest'
+import { defineComponent } from 'vue'
+
+import { Tabs } from '@/shared/ui/tabs'
 
 import SettingsMenu from '../SettingsMenu.vue'
 
-const menuItems = [
-  { title: 'Фон', code: 'background' },
-  { title: 'Ссылки', code: 'links' },
-]
-
-it('settingsMenu - рендер списка категорий', () => {
-  setActivePinia(createPinia())
-
-  const wrapper = mount(SettingsMenu, {
-    shallow: true,
-    props: {
-      menuItems,
-      activeMenuItem: menuItems[0],
+function mountMenu() {
+  return mount(defineComponent({
+    components: { Tabs, SettingsMenu },
+    template: '<Tabs default-value="background"><SettingsMenu /></Tabs>',
+  }), {
+    global: {
+      stubs: {
+        SettingsTransfer: true,
+      },
     },
   })
+}
 
-  expect(wrapper.find('.menu').exists()).toBe(true)
-  expect(wrapper.findAll('.menu__item')).toHaveLength(2)
-})
+it('settingsMenu показывает категории', () => {
+  const wrapper = mountMenu()
 
-it('settingsMenu - кнопки импорта/экспорта', async () => {
-  const wrapper = mount(SettingsMenu, {
-    props: {
-      menuItems,
-      activeMenuItem: menuItems[0],
-    },
-  })
-
-  expect(wrapper.text()).toContain('Import')
-  expect(wrapper.text()).toContain('Export')
+  expect(wrapper.text()).toContain('Фон')
+  expect(wrapper.text()).toContain('Ссылки')
+  expect(wrapper.findComponent({ name: 'SettingsTransfer' }).exists()).toBe(true)
 })

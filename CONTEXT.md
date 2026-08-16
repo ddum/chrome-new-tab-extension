@@ -45,7 +45,7 @@ Persisted preferences are one JSON snapshot `{ background, links }` in `localSto
 | Background tags | `FormAddTag` → `useBackgroundStore.setTags` | Empty and duplicate tags are ignored by Tags Input. |
 | Unsplash access key | `SettingsBackground.vue` → `FormUnsplashKey` → `useBackgroundStore.setAccessKey` | The key is persisted in `background.accessKey`; an empty value clears it. Missing field on old snapshots reads as `''`. |
 | Background refresh | `BackgroundRefresh.vue` → `useRandomBackground` → `unsplash.ts` → `useBackgroundStore.setUrl` | The store access key is passed to Unsplash as `client_id`. A fetch is skipped when the key is empty. A fetched image is preloaded before its URL is persisted. |
-| Settings transfer | `SettingsMenu.vue` → `useFileSystem` / `useSettingsBackup` | JSON contains `background` and `links`; supplied sections replace persisted values. |
+| Settings transfer | `SettingsTransfer.vue` → `useSettingsTransfer` | JSON contains `background` and `links`; supplied sections replace persisted values. |
 
 ## Test Strategy And Known Constraints
 

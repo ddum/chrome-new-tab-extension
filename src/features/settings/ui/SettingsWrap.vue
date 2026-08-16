@@ -1,88 +1,43 @@
 <script lang="ts" setup>
-import type { Component } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
-import { computed, defineAsyncComponent, ref, shallowRef, watch } from 'vue'
-
-import type { CategoryItem } from '@/features/settings/model/types'
+import type { SettingsCategoryCode } from '@/features/settings/model/types'
 
 import SettingsMenu from '@/features/settings/ui/SettingsMenu.vue'
+import { Separator } from '@/shared/ui/separator'
+import { Tabs, TabsContent } from '@/shared/ui/tabs'
 
-const categoryItems: CategoryItem[] = [
-  {
-    title: 'Фон',
-    code: 'background',
-  },
-  {
-    title: 'Ссылки',
-    code: 'links',
-  },
-]
+const activeCategory = ref<SettingsCategoryCode>('background')
 
-const currentMenuItem = ref<CategoryItem | null>(categoryItems[0] ?? null)
-
-const currentComponentCode = computed(() => currentMenuItem.value?.code ?? '')
-
-function setCurrentMenuItem(item: CategoryItem) {
-  currentMenuItem.value = item
-}
-
-const loaders = {
-  links: () => import('@/features/links/ui/SettingsLinks.vue'),
-  background: () => import('@/features/background/ui/SettingsBackground.vue'),
-}
-
-const currentMenuItemComponent = shallowRef<Component | null>(null)
-watch(currentComponentCode, () => {
-  currentMenuItemComponent.value = defineAsyncComponent(
-    loaders[currentComponentCode.value as keyof typeof loaders],
-  )
-}, { immediate: true })
+const SettingsBackground = defineAsyncComponent(() =>
+  import('@/features/background/ui/SettingsBackground.vue'))
+const SettingsLinks = defineAsyncComponent(() =>
+  import('@/features/links/ui/SettingsLinks.vue'))
 </script>
 
 <template>
-  <div class="settings">
-    <div class="settings__menu">
-      <SettingsMenu
-        :menu-items="categoryItems"
-        :active-menu-item="currentMenuItem"
-        @set-menu-item="setCurrentMenuItem"
-      />
+  <Tabs
+    v-model="activeCategory"
+    orientation="vertical"
+    class="flex h-125 w-150 flex-row gap-6 p-3"
+  >
+    <div class="flex w-38 shrink-0 flex-col">
+      <SettingsMenu />
     </div>
-    <div class="settings__content">
-      <component :is="currentMenuItemComponent" />
+    <Separator orientation="vertical" />
+    <div class="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <TabsContent
+        value="background"
+        class="overflow-auto"
+      >
+        <SettingsBackground />
+      </TabsContent>
+      <TabsContent
+        value="links"
+        class="flex min-h-0 flex-1 flex-col overflow-hidden"
+      >
+        <SettingsLinks />
+      </TabsContent>
     </div>
-  </div>
+  </Tabs>
 </template>
-
-<style scoped>
-.settings {
-  display: flex;
-  flex-direction: row;
-  width: 600px;
-  min-height: 500px;
-}
-.settings__menu {
-  padding: 15px;
-  border-right: 1px solid var(--settings-border-color);
-  width: 150px;
-}
-
-.settings__content {
-  padding: 20px 25px;
-  flex: 1;
-  max-height: 500px;
-  overflow: auto;
-}
-
-.settings__content::-webkit-scrollbar {
-  width: 6px;
-}
-.settings__content::-webkit-scrollbar-thumb {
-  background-color: #0003;
-  border-radius: 10px;
-  transition: all 0.2s ease-in-out;
-}
-.settings__content::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
-</style>

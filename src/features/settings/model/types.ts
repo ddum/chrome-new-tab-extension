@@ -1,4 +1,6 @@
-export interface CategoryItem {
+export type SettingsCategoryCode = 'background' | 'links'
+
+export interface SettingsCategory {
   title: string
-  code: string
+  code: SettingsCategoryCode
 }
