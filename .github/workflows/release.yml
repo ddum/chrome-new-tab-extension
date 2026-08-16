@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,13 +30,33 @@ jobs:
           cd dist
           zip -r ../chrome-new-tab-extension-${{ github.ref_name }}.zip .
 
+      - name: Generate changelog
+        run: |
+          set -euo pipefail
+          current="${GITHUB_REF_NAME}"
+          previous="$(git tag --list 'v*.*.*' --sort=-version:refname | grep -vxF "${current}" | head -n1 || true)"
+
+          {
+            echo "## Changelog"
+            echo ""
+            if [ -n "${previous}" ]; then
+              echo "Changes since \`${previous}\`:"
+              echo ""
+              git log --pretty=format:'- %s (%h)' "${previous}..${current}"
+            else
+              git log --pretty=format:'- %s (%h)' "${current}"
+            fi
+            echo ""
+          } > release-notes.md
+
+          cat release-notes.md
+
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
-          body: |
-            Auto release created by workflow
+          bodyFile: release-notes.md
           artifacts: |
             chrome-new-tab-extension-${{ github.ref_name }}.zip
 
