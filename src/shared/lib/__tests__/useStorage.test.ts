@@ -1,4 +1,6 @@
-import { beforeEach, expect, it, vi } from 'vitest'
+import type { EffectScope } from 'vue'
+
+import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { effectScope } from 'vue'
 
 import useStorage from '../useStorage'
@@ -9,18 +11,33 @@ interface TestValue {
 }
 
 const codeTest = '__testLolaclStorage__'
+const scopes: EffectScope[] = []
+
+function trackedStorage<T>(key: string, defaultValue: T) {
+  const scope = effectScope()
+  scopes.push(scope)
+  return scope.run(() => useStorage<T>(key, defaultValue))!
+}
 
 beforeEach(() => {
   localStorage.clear()
 })
 
+afterEach(() => {
+  for (const scope of scopes) {
+    scope.stop()
+  }
+  scopes.length = 0
+  localStorage.clear()
+})
+
 it('useStorage - значение по умолчанию', () => {
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
   expect(value.value).toStrictEqual({ url: 'test', tags: ['a', 'b'] })
 })
 
 it('useStorage - set', () => {
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
   value.value = { url: 'test2', tags: ['c', 'd'] }
 
   const localStorageValue = JSON.parse(localStorage.getItem(codeTest) || '{}')
@@ -28,13 +45,13 @@ it('useStorage - set', () => {
 })
 
 it('useStorage - get', () => {
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
   value.value = { url: 'test3', tags: ['c', 'd'] }
   expect(value.value).toStrictEqual({ url: 'test3', tags: ['c', 'd'] })
 })
 
 it('useStorage - частичная мутация', () => {
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
 
   value.value.url = 'test4'
   value.value.tags.push('c')
@@ -46,7 +63,7 @@ it('useStorage - частичная мутация', () => {
 })
 
 it('useStorage - изменение LocalStorage из другой вкладки', () => {
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
 
   localStorage.setItem(codeTest, JSON.stringify({ url: 'test5', tags: ['c', 'd'] }))
   window.dispatchEvent(new StorageEvent('storage', { key: codeTest }))
@@ -59,7 +76,7 @@ it('useStorage - изменение LocalStorage из другой вкладк�
 
 it('useStorage - мутация не затрагивает значение по умолчанию', () => {
   const defaultValue: TestValue = { url: 'test', tags: ['a', 'b'] }
-  const value = useStorage<TestValue>(codeTest, defaultValue)
+  const value = trackedStorage<TestValue>(codeTest, defaultValue)
 
   value.value.tags.push('c')
   expect(defaultValue.tags).toStrictEqual(['a', 'b'])
@@ -69,7 +86,7 @@ it('useStorage - повреждённое значение LocalStorage не п�
   const error = vi.spyOn(console, 'error').mockImplementation(() => {})
   localStorage.setItem(codeTest, '{invalid json')
 
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
 
   expect(value.value).toStrictEqual({ url: 'test', tags: ['a', 'b'] })
   expect(error).toHaveBeenCalledOnce()
@@ -81,7 +98,7 @@ it('useStorage - ошибка записи не прерывает мутаци�
   const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementationOnce(() => {
     throw new Error('Storage quota exceeded')
   })
-  const value = useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
+  const value = trackedStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] })
 
   value.value.url = 'test6'
 
@@ -93,6 +110,7 @@ it('useStorage - ошибка записи не прерывает мутаци�
 
 it('useStorage - перестаёт слушать storage после dispose', () => {
   const scope = effectScope()
+  scopes.push(scope)
   const value = scope.run(() => useStorage<TestValue>(codeTest, { url: 'test', tags: ['a', 'b'] }))!
 
   scope.stop()

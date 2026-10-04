@@ -11,17 +11,20 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="flex flex-col gap-1.5">
+  <nav class="flex flex-col gap-0.5">
     <a
       v-for="link in props.links"
       :key="link.url"
       :href="link.url"
-      class="flex items-center gap-2 text-base text-white no-underline"
+      class="
+        flex items-center gap-2 rounded-md px-2 py-1 transition-colors
+        hover:bg-on-image/20 focus-visible:bg-on-image/20 focus-visible:outline-none
+      "
     >
-      <LinkFavicon :domain="link.url" class="size-5" />
-      <div class="text-shadow-[0_0_17px_black]">
+      <LinkFavicon :domain="link.url" />
+      <span class="text-sm font-medium text-on-image drop-shadow">
         {{ link.title }}
-      </div>
+      </span>
     </a>
-  </div>
+  </nav>
 </template>

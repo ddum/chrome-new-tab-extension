@@ -5,7 +5,7 @@ Project operating rules and exact validation commands. Architecture and domain c
 <!-- AUTO-GENERATED: ENRICH-AGENTS -->
 ## Stack
 
-- Vue 3 + TypeScript, Vite, Pinia, and Vitest; npm is the package manager.
+- Vue 3 + TypeScript, Vite, Tailwind CSS v4 (CSS-first `@theme` + CSS variables), Pinia, and Vitest; npm is the package manager.
 - This is a Manifest V3 Chrome new-tab extension. The build output is loaded unpacked from `dist/`.
 
 ## Commands

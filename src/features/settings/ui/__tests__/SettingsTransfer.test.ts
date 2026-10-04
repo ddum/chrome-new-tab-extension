@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { expect, it, vi } from 'vitest'
+import { beforeEach, expect, it, vi } from 'vitest'
 
 import SettingsTransfer from '../SettingsTransfer.vue'
 
@@ -11,6 +11,11 @@ const transferMocks = vi.hoisted(() => ({
 vi.mock('@/features/settings/model/useSettingsTransfer', () => ({
   useSettingsTransfer: () => transferMocks,
 }))
+
+beforeEach(() => {
+  transferMocks.importSettings.mockClear()
+  transferMocks.exportSettings.mockClear()
+})
 
 it('settingsTransfer показывает кнопки импорта и экспорта', () => {
   const wrapper = mount(SettingsTransfer)

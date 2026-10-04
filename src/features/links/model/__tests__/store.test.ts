@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect } from 'vitest'
 import { useLinksStore } from '../store'
 
 beforeEach(() => {
+  localStorage.clear()
   setActivePinia(createPinia())
 })
 

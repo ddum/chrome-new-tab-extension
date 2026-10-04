@@ -7,6 +7,7 @@ import { useLinksStore } from '@/features/links/model/store'
 import { useSettingsBackup } from '../backup'
 
 beforeEach(() => {
+  localStorage.clear()
   setActivePinia(createPinia())
 })
 

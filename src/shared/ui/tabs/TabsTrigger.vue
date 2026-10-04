@@ -1,31 +1,36 @@
 <script setup lang="ts">
-import type { TabsTriggerProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
+import { computed, inject } from 'vue'
 
-import { reactiveOmit } from '@vueuse/core'
-import { TabsTrigger, useForwardProps } from 'reka-ui'
+import { tabsKey } from './keys'
+import { tabsTriggerVariants } from './TabsTrigger.style'
 
-import { cn } from '@/shared/lib/utils'
+interface TabsTriggerProps {
+  value: string
+}
 
-const props = defineProps<TabsTriggerProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<TabsTriggerProps>()
 
-const delegatedProps = reactiveOmit(props, 'class')
+const injected = inject(tabsKey)
 
-const forwardedProps = useForwardProps(delegatedProps)
+if (!injected) {
+  throw new Error('TabsTrigger must be used inside Tabs')
+}
+
+const model = injected
+const selected = computed(() => model.value === props.value)
+
+function select() {
+  model.value = props.value
+}
 </script>
 
 <template>
-  <TabsTrigger
-    data-slot="tabs-trigger"
-    :class="cn(
-      'inline-flex flex-1 items-center justify-center gap-1.5 px-2 py-1',
-      'text-sm font-medium whitespace-nowrap text-foreground',
-      'transition-colors disabled:pointer-events-none disabled:opacity-50',
-      'underline-offset-4 data-[state=active]:underline focus-visible:underline',
-      props.class,
-    )"
-    v-bind="forwardedProps"
+  <button
+    type="button"
+    :class="tabsTriggerVariants({ selected })"
+    :aria-selected="selected"
+    @click="select"
   >
     <slot />
-  </TabsTrigger>
+  </button>
 </template>

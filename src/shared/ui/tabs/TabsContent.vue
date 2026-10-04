@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import type { TabsContentProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
+import { inject } from 'vue'
 
-import { reactiveOmit } from '@vueuse/core'
-import { TabsContent } from 'reka-ui'
+import { tabsKey } from './keys'
 
-import { cn } from '@/shared/lib/utils'
+interface TabsContentProps {
+  value: string
+}
 
-const props = defineProps<TabsContentProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<TabsContentProps>()
 
-const delegatedProps = reactiveOmit(props, 'class')
+const injected = inject(tabsKey)
+
+if (!injected) {
+  throw new Error('TabsContent must be used inside Tabs')
+}
+
+const model = injected
 </script>
 
 <template>
-  <TabsContent
-    data-slot="tabs-content"
-    :class="cn('flex-1 outline-none', props.class)"
-    v-bind="delegatedProps"
-  >
+  <div v-if="model === props.value">
     <slot />
-  </TabsContent>
+  </div>
 </template>

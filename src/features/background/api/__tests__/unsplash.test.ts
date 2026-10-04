@@ -31,10 +31,10 @@ afterEach(() => {
 it('fetchRandomPhoto запрашивает случайное фото Unsplash и возвращает предзагруженный url', async () => {
   stubImagePreload()
   const rawUrl = 'https://images.unsplash.com/photo-test'
-  globalThis.fetch = vi.fn().mockResolvedValue({
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
     status: 200,
     json: async () => ({ urls: { raw: rawUrl } }),
-  })
+  }))
 
   const url = await fetchRandomPhoto({
     accessKey: 'test-access-key',
@@ -52,13 +52,13 @@ it('fetchRandomPhoto запрашивает случайное фото Unsplash
 })
 
 it('fetchRandomPhoto возвращает пустую строку и не вызывает fetch без ключа', async () => {
-  globalThis.fetch = vi.fn()
+  vi.stubGlobal('fetch', vi.fn())
   expect(await fetchRandomPhoto()).toBe('')
   expect(await fetchRandomPhoto({ accessKey: '' })).toBe('')
   expect(fetch).not.toHaveBeenCalled()
 })
 
 it('fetchRandomPhoto возвращает пустую строку, если ответ не 200', async () => {
-  globalThis.fetch = vi.fn().mockResolvedValue({ status: 404 })
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ status: 404 }))
   expect(await fetchRandomPhoto({ accessKey: 'test-access-key' })).toBe('')
 })

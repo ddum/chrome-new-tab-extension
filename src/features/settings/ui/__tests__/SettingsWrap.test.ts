@@ -27,13 +27,15 @@ it('settingsWrap по умолчанию показывает вкладку ф�
   expect(wrapper.text()).toContain('Ссылки')
   expect(wrapper.text()).toContain('background-panel')
   expect(wrapper.text()).not.toContain('links-panel')
+  expect(wrapper.text()).toContain('Импорт')
+  expect(wrapper.text()).toContain('Экспорт')
 })
 
 it('settingsWrap переключает вкладку на ссылки', async () => {
   const wrapper = mountWrap()
 
   const linksTab = wrapper.findAll('button').find(button => button.text() === 'Ссылки')
-  await linksTab!.trigger('mousedown', { button: 0 })
+  await linksTab!.trigger('click')
 
   expect(wrapper.text()).toContain('links-panel')
   expect(wrapper.text()).not.toContain('background-panel')

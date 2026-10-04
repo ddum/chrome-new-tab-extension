@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useBackgroundStore } from '@/features/background/model/store'
-import BackgroundRefresh from '@/features/background/ui/BackgroundRefresh.vue'
 import TimeString from '@/features/clock/ui/TimeString.vue'
 import { useLinksStore } from '@/features/links/model/store'
 import LinksList from '@/features/links/ui/LinksList.vue'
@@ -37,9 +36,6 @@ const linksStore = useLinksStore()
         <LayoutLeft>
           <SettingsButton />
         </LayoutLeft>
-        <LayoutRight>
-          <BackgroundRefresh />
-        </LayoutRight>
       </LayoutBar>
     </LayoutFooter>
   </Layout>

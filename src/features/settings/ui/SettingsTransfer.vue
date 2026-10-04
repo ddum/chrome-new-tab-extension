@@ -8,24 +8,18 @@ const { importSettings, exportSettings } = useSettingsTransfer()
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
-    <Button
-      class="w-full"
-      variant="outline"
-      size="sm"
-      @click="importSettings"
-    >
-      Импорт
-      <Upload data-icon="inline-end" class="size-4" />
-    </Button>
-    <Button
-      class="w-full"
-      variant="outline"
-      size="sm"
-      @click="exportSettings"
-    >
-      Экспорт
-      <Download data-icon="inline-end" class="size-4" />
-    </Button>
-  </div>
+  <Button
+    variant="outline"
+    @click="importSettings"
+  >
+    <Upload :size="14" />
+    Импорт
+  </Button>
+  <Button
+    variant="outline"
+    @click="exportSettings"
+  >
+    <Download :size="14" />
+    Экспорт
+  </Button>
 </template>

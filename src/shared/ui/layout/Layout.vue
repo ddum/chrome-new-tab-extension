@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const props = defineProps<{
+interface LayoutProps {
   imageUrl?: string
-}>()
+}
+
+const props = defineProps<LayoutProps>()
 
 const layoutStyle = computed(() => ({
   '--layout-image': props.imageUrl ? `url(${props.imageUrl})` : 'none',
@@ -13,11 +15,7 @@ const layoutStyle = computed(() => ({
 <template>
   <div
     data-slot="layout"
-    class="
-      relative flex min-h-screen origin-center flex-col justify-between
-      bg-transparent bg-center bg-no-repeat p-5
-      transition duration-300 ease-out
-    "
+    class="relative isolate size-full overflow-hidden bg-cover bg-center bg-no-repeat"
     :style="layoutStyle"
   >
     <slot />
@@ -26,44 +24,40 @@ const layoutStyle = computed(() => ({
 
 <style scoped>
 [data-slot='layout'] {
+  --vignette-26: rgb(0 0 0 / 26%);
+  --vignette-24: rgb(0 0 0 / 24%);
+  --vignette-19: rgb(0 0 0 / 19%);
+  --vignette-10: rgb(0 0 0 / 10%);
+  --vignette-0: rgb(0 0 0 / 0%);
+  --vignette-center-size: 420px 200px;
+  --vignette-side-width: 300px;
+
+  background-image: var(--layout-image, none);
+}
+
+[data-slot='layout']::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
   background-image:
     radial-gradient(
-      22% 18% at 50% 50%,
-      rgb(0 0 0 / 26%) 0%,
-      rgb(0 0 0 / 24%) 30%,
-      rgb(0 0 0 / 19%) 50%,
-      rgb(0 0 0 / 10%) 72%,
+      var(--vignette-center-size) at 50% 50%,
+      var(--vignette-26) 0%,
+      var(--vignette-24) 30%,
+      var(--vignette-19) 50%,
+      var(--vignette-10) 72%,
       transparent 100%
     ),
-    radial-gradient(
-      30% 30% at 0% 0%,
-      rgb(0 0 0 / 35%) 0%,
-      rgb(0 0 0 / 20%) 33%,
-      rgb(0 0 0 / 8%) 60%,
-      transparent 100%
+    linear-gradient(
+      to right in srgb,
+      var(--vignette-24) 0,
+      var(--vignette-0) var(--vignette-side-width)
     ),
-    radial-gradient(
-      30% 30% at 100% 0%,
-      rgb(0 0 0 / 35%) 0%,
-      rgb(0 0 0 / 20%) 33%,
-      rgb(0 0 0 / 8%) 60%,
-      transparent 100%
-    ),
-    radial-gradient(
-      30% 30% at 0% 100%,
-      rgb(0 0 0 / 35%) 0%,
-      rgb(0 0 0 / 20%) 33%,
-      rgb(0 0 0 / 8%) 60%,
-      transparent 100%
-    ),
-    radial-gradient(
-      30% 30% at 100% 100%,
-      rgb(0 0 0 / 35%) 0%,
-      rgb(0 0 0 / 20%) 33%,
-      rgb(0 0 0 / 8%) 60%,
-      transparent 100%
-    ),
-    var(--layout-image, none);
-  background-size: auto, auto, auto, auto, auto, cover;
+    linear-gradient(
+      to left in srgb,
+      var(--vignette-24) 0,
+      var(--vignette-0) var(--vignette-side-width)
+    );
 }
 </style>

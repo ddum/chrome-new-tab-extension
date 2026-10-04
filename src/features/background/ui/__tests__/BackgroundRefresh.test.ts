@@ -26,6 +26,7 @@ function stubImagePreload() {
 }
 
 beforeEach(() => {
+  localStorage.clear()
   setActivePinia(createPinia())
   stubImagePreload()
 })
@@ -38,16 +39,16 @@ afterEach(() => {
 
 it('backgroundRefresh смена фона', async () => {
   const rawUrl = 'https://images.unsplash.com/photo-test'
-  globalThis.fetch = vi.fn().mockResolvedValue({
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
     status: 200,
     json: async () => ({ urls: { raw: rawUrl } }),
-  })
+  }))
 
   useBackgroundStore().setAccessKey('test-access-key')
 
   const wrapper = mount(BackgroundRefresh)
   const button = wrapper.get('button')
-  expect(button.attributes('aria-label')).toBe('Обновить фон')
+  expect(button.text()).toContain('Обновить фон')
 
   await button.trigger('click')
   await flushPromises()

@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-
 import { computed } from 'vue'
 
-import { cn } from '@/shared/lib/utils'
-
-const props = defineProps<{
+interface LinkFaviconProps {
   domain: string
-  class?: HTMLAttributes['class']
-}>()
+}
+
+const props = defineProps<LinkFaviconProps>()
 
 const hostname = computed(() => {
   try {
@@ -29,6 +26,6 @@ const faviconSrc = computed(
   <img
     :src="faviconSrc"
     alt=""
-    :class="cn('size-full max-h-8 max-w-8', props.class)"
+    class="size-4 shrink-0"
   >
 </template>

@@ -1,28 +1,21 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
+import { Label } from '@/shared/ui/label'
 
-import { cn } from '@/shared/lib/utils'
+interface FieldProps {
+  label: string
+  for: string
+}
 
-import type { FieldVariants } from '.'
+const props = defineProps<FieldProps>()
 
-import { fieldVariants } from '.'
-
-const props = defineProps<{
-  class?: HTMLAttributes['class']
-  orientation?: FieldVariants['orientation']
+defineSlots<{
+  default: () => unknown
 }>()
 </script>
 
 <template>
-  <div
-    role="group"
-    data-slot="field"
-    :data-orientation="orientation"
-    :class="cn(
-      fieldVariants({ orientation }),
-      props.class,
-    )"
-  >
+  <div class="flex flex-col gap-1.5">
+    <Label :for="props.for">{{ props.label }}</Label>
     <slot />
   </div>
 </template>

@@ -25,6 +25,9 @@ export default antfu(
           tabWidth: 2,
           template: 100,
         }],
+        'vue/define-props-destructuring': ['error', {
+          destructure: 'never',
+        }],
       },
     },
   },

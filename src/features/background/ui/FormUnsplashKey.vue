@@ -1,24 +1,20 @@
 <script lang="ts" setup>
+import { Field } from '@/shared/ui/field'
 import { Input } from '@/shared/ui/input'
 
-const props = defineProps<{
-  modelValue: string
-}>()
-
-const emit = defineEmits<{
-  'update:modelValue': [value: string]
-}>()
-
-function updateValue(value: string | number) {
-  emit('update:modelValue', String(value))
-}
+const model = defineModel<string>({ default: '' })
 </script>
 
 <template>
-  <Input
-    :model-value="props.modelValue"
-    type="password"
-    placeholder="Unsplash Access Key"
-    @update:model-value="updateValue"
-  />
+  <Field
+    label="API-ключ Unsplash"
+    for="unsplash-key"
+  >
+    <Input
+      id="unsplash-key"
+      v-model="model"
+      type="password"
+      placeholder="Unsplash Access Key"
+    />
+  </Field>
 </template>

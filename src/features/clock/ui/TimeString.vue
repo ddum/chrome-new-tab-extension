@@ -5,11 +5,11 @@ const { timeString, dateString } = useDateTime()
 </script>
 
 <template>
-  <div class="text-center font-bold text-white">
-    <div class="text-[180px] leading-none">
+  <div class="text-center">
+    <div class="text-[148px] leading-none font-bold text-on-image drop-shadow-lg">
       {{ timeString }}
     </div>
-    <div class="text-[23px]">
+    <div class="mt-3 text-lg font-medium text-on-image drop-shadow">
       {{ dateString }}
     </div>
   </div>

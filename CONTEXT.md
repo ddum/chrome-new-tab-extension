@@ -15,7 +15,7 @@ Persisted preferences are one JSON snapshot `{ background, links }` in `localSto
 | --- | --- |
 | `src/app/main.ts` | Vue bootstrap, Pinia registration, global styles. |
 | `src/app/App.vue` | New-tab shell: clock, links list, settings, background refresh. |
-| `src/app/styles/base.css` | Global tokens and base styles. |
+| `src/app/main.css` | Tailwind v4 entry: `@theme` tokens as CSS variables and base styles. |
 | `src/features/clock/` | Localized clock UI and `useDateTime`. |
 | `src/features/links/` | Saved links list, add/delete forms, `useLinksStore`. |
 | `src/features/background/` | Tags, Unsplash access-key form, refresh button, Unsplash API, `useBackgroundStore`. |

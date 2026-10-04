@@ -6,6 +6,7 @@ import { STORAGE_KEY } from '@/shared/config/app'
 import { useBackgroundStore } from '../store'
 
 beforeEach(() => {
+  localStorage.clear()
   setActivePinia(createPinia())
 })
 

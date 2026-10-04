@@ -9,14 +9,8 @@ import SettingsMenu from '../SettingsMenu.vue'
 function mountMenu() {
   return mount(defineComponent({
     components: { Tabs, SettingsMenu },
-    template: '<Tabs default-value="background"><SettingsMenu /></Tabs>',
-  }), {
-    global: {
-      stubs: {
-        SettingsTransfer: true,
-      },
-    },
-  })
+    template: '<Tabs model-value="background"><SettingsMenu /></Tabs>',
+  }))
 }
 
 it('settingsMenu показывает категории', () => {
@@ -24,5 +18,4 @@ it('settingsMenu показывает категории', () => {
 
   expect(wrapper.text()).toContain('Фон')
   expect(wrapper.text()).toContain('Ссылки')
-  expect(wrapper.findComponent({ name: 'SettingsTransfer' }).exists()).toBe(true)
 })
