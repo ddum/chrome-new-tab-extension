@@ -17,10 +17,7 @@ function commit() {
 </script>
 
 <template>
-  <Field
-    label="API-ключ Unsplash"
-    for="unsplash-key"
-  >
+  <Field label="API-ключ Unsplash" for="unsplash-key">
     <Input
       id="unsplash-key"
       v-model="draft"

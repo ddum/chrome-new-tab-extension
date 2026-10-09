@@ -64,10 +64,7 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <div
-      ref="reference"
-      @click="toggle"
-    >
+    <div ref="reference" @click="toggle">
       <slot name="trigger" />
     </div>
     <Teleport to="body">

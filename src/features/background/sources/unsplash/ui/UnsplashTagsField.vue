@@ -25,10 +25,7 @@ function removeTag(tag: string) {
 
 <template>
   <div class="flex flex-col gap-2">
-    <Field
-      label="Теги"
-      for="add-tag"
-    >
+    <Field label="Теги" for="add-tag">
       <Input
         id="add-tag"
         v-model="draft"

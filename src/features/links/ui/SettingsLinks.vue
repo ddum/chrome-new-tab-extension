@@ -13,11 +13,7 @@ const linksStore = useLinksStore()
   <div class="flex flex-col gap-3">
     <FormAddLink @submit="linksStore.addLink" />
     <ul class="divide-y divide-border">
-      <li
-        v-for="link in linksStore.items"
-        :key="link.url"
-        class="flex items-center gap-2 py-2"
-      >
+      <li v-for="link in linksStore.items" :key="link.url" class="flex items-center gap-2 py-2">
         <LinkFavicon :domain="link.url" />
         <span class="min-w-0 flex-1 truncate text-sm text-foreground">
           {{ link.title }}

@@ -1,0 +1,38 @@
+---
+description: Put an opening tag on one line when it has at most three attributes
+globs: "**/*.vue"
+alwaysApply: false
+---
+
+# Template attributes
+
+Put the opening tag on one line when it has 1–3 attributes and the line is at most 100 characters.
+
+With 4 or more attributes, put each attribute on its own line.
+
+Keep a tag multiline when an attribute value itself spans multiple lines.
+
+```vue
+<LinkFavicon :domain="link.url" variant="overlay" />
+
+<Button variant="overlay" size="sm" aria-label="Открыть настройки">
+  Save
+</Button>
+
+<a
+  v-for="link in links"
+  :key="link.url"
+  :href="link.url"
+  class="block"
+>
+  {{ link.title }}
+</a>
+```
+
+```vue
+<!-- ❌ three attributes that fit on one line -->
+<LinkFavicon
+  :domain="link.url"
+  variant="overlay"
+/>
+```

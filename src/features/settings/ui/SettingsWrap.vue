@@ -17,11 +17,7 @@ const activeCategory = ref(tabs[0].code)
   >
     <SettingsMenu :tabs="tabs" />
     <div class="flex-1 overflow-y-auto p-4">
-      <TabsContent
-        v-for="tab in tabs"
-        :key="tab.code"
-        :value="tab.code"
-      >
+      <TabsContent v-for="tab in tabs" :key="tab.code" :value="tab.code">
         <component :is="tab.component" />
       </TabsContent>
     </div>

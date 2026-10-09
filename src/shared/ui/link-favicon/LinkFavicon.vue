@@ -38,10 +38,6 @@ function onError() {
       class="size-full"
       @error="onError"
     >
-    <Globe
-      v-else
-      class="size-full"
-      aria-hidden="true"
-    />
+    <Globe v-else class="size-full" aria-hidden="true" />
   </span>
 </template>

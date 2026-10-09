@@ -22,14 +22,8 @@ function setTags(tags: string[]) {
 
 <template>
   <div class="flex flex-col gap-3">
-    <UnsplashAccessKeyField
-      :model-value="settings.accessKey"
-      @update:model-value="setAccessKey"
-    />
-    <UnsplashTagsField
-      :model-value="settings.tags"
-      @update:model-value="setTags"
-    />
+    <UnsplashAccessKeyField :model-value="settings.accessKey" @update:model-value="setAccessKey" />
+    <UnsplashTagsField :model-value="settings.tags" @update:model-value="setTags" />
     <RefreshUnsplashButton
       :access-key="settings.accessKey"
       :tags="settings.tags"

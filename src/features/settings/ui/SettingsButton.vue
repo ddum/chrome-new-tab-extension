@@ -12,11 +12,7 @@ const isOpen = ref(false)
 <template>
   <Popover v-model:open="isOpen">
     <template #trigger>
-      <Button
-        variant="overlay"
-        size="sm"
-        aria-label="Открыть настройки"
-      >
+      <Button variant="overlay" size="sm" aria-label="Открыть настройки">
         <Settings :size="20" />
       </Button>
     </template>

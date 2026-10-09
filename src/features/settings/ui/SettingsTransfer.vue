@@ -8,17 +8,11 @@ const { importSettings, exportSettings } = useSettingsTransfer()
 </script>
 
 <template>
-  <Button
-    variant="outline"
-    @click="importSettings"
-  >
+  <Button variant="outline" @click="importSettings">
     <Upload :size="14" />
     Импорт
   </Button>
-  <Button
-    variant="outline"
-    @click="exportSettings"
-  >
+  <Button variant="outline" @click="exportSettings">
     <Download :size="14" />
     Экспорт
   </Button>

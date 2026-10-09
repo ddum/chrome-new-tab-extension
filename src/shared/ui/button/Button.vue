@@ -17,10 +17,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 </script>
 
 <template>
-  <button
-    :type="props.type"
-    :class="buttonVariants({ variant: props.variant, size: props.size })"
-  >
+  <button :type="props.type" :class="buttonVariants({ variant: props.variant, size: props.size })">
     <slot />
   </button>
 </template>

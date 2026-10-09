@@ -31,15 +31,8 @@ async function refresh() {
 </script>
 
 <template>
-  <Button
-    class="self-start"
-    :disabled="isLoading"
-    @click="refresh"
-  >
-    <RefreshCw
-      :size="14"
-      :class="isLoading ? 'animate-spin' : ''"
-    />
+  <Button class="self-start" :disabled="isLoading" @click="refresh">
+    <RefreshCw :size="14" :class="isLoading ? 'animate-spin' : ''" />
     Обновить фон
   </Button>
 </template>

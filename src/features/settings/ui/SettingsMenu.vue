@@ -12,11 +12,7 @@ const props = defineProps<SettingsMenuProps>()
 
 <template>
   <TabsList>
-    <TabsTrigger
-      v-for="item in props.tabs"
-      :key="item.code"
-      :value="item.code"
-    >
+    <TabsTrigger v-for="item in props.tabs" :key="item.code" :value="item.code">
       {{ item.title }}
     </TabsTrigger>
   </TabsList>
