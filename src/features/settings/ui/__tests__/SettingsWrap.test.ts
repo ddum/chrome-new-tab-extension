@@ -1,21 +1,37 @@
 import { createTestingPinia } from '@pinia/testing'
 import { mount } from '@vue/test-utils'
 import { expect, it, vi } from 'vitest'
+import { defineComponent } from 'vue'
+
+import type { SettingsTab } from '@/features/settings/model/types'
+
+import { provideSettingsTabs } from '@/features/settings/model/useSettingsTabs'
 
 import SettingsWrap from '../SettingsWrap.vue'
 
+const tabs: SettingsTab[] = [
+  {
+    code: 'background',
+    title: 'Фон',
+    component: { template: '<div>background-panel</div>' },
+  },
+  {
+    code: 'links',
+    title: 'Ссылки',
+    component: { template: '<div>links-panel</div>' },
+  },
+]
+
 function mountWrap() {
-  return mount(SettingsWrap, {
+  return mount(defineComponent({
+    components: { SettingsWrap },
+    setup() {
+      provideSettingsTabs(tabs)
+    },
+    template: '<SettingsWrap />',
+  }), {
     global: {
       plugins: [createTestingPinia({ createSpy: vi.fn })],
-      stubs: {
-        SettingsBackground: {
-          template: '<div>background-panel</div>',
-        },
-        SettingsLinks: {
-          template: '<div>links-panel</div>',
-        },
-      },
     },
   })
 }

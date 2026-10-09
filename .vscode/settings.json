@@ -1,7 +1,20 @@
 {
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,
+  "eslint.format.enable": true,
   "editor.formatOnSave": false,
+
+  // User settings point these at Prettier; override here so Format Document
+  // uses ESLint while Prettier is disabled for this workspace.
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
 
   // Auto fix
   "editor.codeActionsOnSave": {

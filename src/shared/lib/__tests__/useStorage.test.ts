@@ -3,7 +3,7 @@ import type { EffectScope } from 'vue'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { effectScope } from 'vue'
 
-import useStorage from '../useStorage'
+import { useStorage } from '../useStorage'
 
 interface TestValue {
   url: string

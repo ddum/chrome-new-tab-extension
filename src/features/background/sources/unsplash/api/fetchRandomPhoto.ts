@@ -3,7 +3,25 @@ import { UNSPLASH_API_ORIGIN } from '@/shared/config/app'
 export interface FetchRandomPhotoOptions {
   accessKey?: string
   tags?: string[]
-  size?: number[]
+  size?: [width: number, height: number]
+}
+
+interface UnsplashRandomPhoto {
+  urls: {
+    raw: string
+  }
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
+}
+
+function isUnsplashRandomPhoto(value: unknown): value is UnsplashRandomPhoto {
+  if (!isRecord(value) || !isRecord(value.urls)) {
+    return false
+  }
+
+  return typeof value.urls.raw === 'string'
 }
 
 function preloadImage(url: string): Promise<HTMLImageElement> {
@@ -35,13 +53,17 @@ export async function fetchRandomPhoto(options: FetchRandomPhotoOptions = {}): P
       return ''
     }
 
-    const photo = await response.json()
+    const photo: unknown = await response.json()
+    if (!isUnsplashRandomPhoto(photo)) {
+      return ''
+    }
+
     const urlPhoto = new URL(photo.urls.raw)
 
-    if (options.size && options.size.length > 0) {
-      const [w, h] = options.size
-      urlPhoto.searchParams.append('w', String(w))
-      urlPhoto.searchParams.append('h', String(h))
+    if (options.size) {
+      const [width, height] = options.size
+      urlPhoto.searchParams.append('w', String(width))
+      urlPhoto.searchParams.append('h', String(height))
     }
 
     const image = await preloadImage(urlPhoto.href)

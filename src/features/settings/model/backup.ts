@@ -1,6 +1,6 @@
-import type { AppValue } from '@/shared/lib/types'
+import type { AppValue } from '@/shared/model/app-snapshot/types'
 
-import { useAppSnapshot } from '@/shared/lib/useAppSnapshot'
+import { useAppSnapshot } from '@/shared/model/app-snapshot/useAppSnapshot'
 
 export function useSettingsBackup() {
   const appValue = useAppSnapshot()

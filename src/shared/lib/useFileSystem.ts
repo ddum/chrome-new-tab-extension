@@ -1,4 +1,4 @@
-export default function useFileSystem() {
+export function useFileSystem() {
   async function saveFile(
     contents: string,
     options: SaveFilePickerOptions,

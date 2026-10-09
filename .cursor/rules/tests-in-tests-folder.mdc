@@ -1,0 +1,20 @@
+---
+description: Place every unit test in a sibling __tests__ folder
+alwaysApply: true
+---
+
+# Tests live in __tests__
+
+Put every Vitest file in a `__tests__` directory next to the module it covers. Name the file after that module.
+
+```ts
+// features/catalog/api/__tests__/fetchProduct.test.ts
+import { fetchProduct } from '../fetchProduct'
+```
+
+```ts
+// ❌ colocating the test next to the module
+// features/catalog/api/fetchProduct.test.ts
+```
+
+`tsconfig.app.json` excludes `src/**/__tests__/*`. A test outside that folder is type-checked with the app.

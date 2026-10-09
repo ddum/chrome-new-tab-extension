@@ -1,6 +1,7 @@
-export type SettingsCategoryCode = 'background' | 'links'
+import type { Component } from 'vue'
 
-export interface SettingsCategory {
+export interface SettingsTab {
+  code: string
   title: string
-  code: SettingsCategoryCode
+  component: Component
 }

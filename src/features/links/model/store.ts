@@ -1,27 +1,33 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 
-import { useAppSnapshot } from '@/shared/lib/useAppSnapshot'
+import { useSnapshotSection } from '@/shared/model/app-snapshot/useAppSnapshot'
+
+import type { LinksValue } from './types'
+
+const DEFAULT_VALUE: LinksValue = {
+  items: [],
+}
 
 export const useLinksStore = defineStore('links', () => {
-  const appValue = useAppSnapshot()
+  const links = useSnapshotSection('links', DEFAULT_VALUE)
 
-  const items = computed(() => appValue.value.links.items)
+  const items = computed(() => links.value.items)
 
   function addLink(url: string, title: string) {
     if (
       url === ''
       || title === ''
-      || appValue.value.links.items.some(link => link.url === url)
+      || links.value.items.some(link => link.url === url)
     ) {
       return
     }
 
-    appValue.value.links.items.push({ url, title })
+    links.value.items.push({ url, title })
   }
 
   function deleteLink(url: string) {
-    appValue.value.links.items = appValue.value.links.items.filter(link => link.url !== url)
+    links.value.items = links.value.items.filter(link => link.url !== url)
   }
 
   return {

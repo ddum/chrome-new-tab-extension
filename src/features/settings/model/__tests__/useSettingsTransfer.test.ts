@@ -14,7 +14,7 @@ vi.mock('../backup', () => ({
 }))
 
 vi.mock('@/shared/lib/useFileSystem', () => ({
-  default: () => ({ openFile, saveFile }),
+  useFileSystem: () => ({ openFile, saveFile }),
 }))
 
 describe('перенос настроек в файл', () => {

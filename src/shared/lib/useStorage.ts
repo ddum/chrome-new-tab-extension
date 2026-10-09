@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 
 import { getCurrentScope, onScopeDispose, ref, watch } from 'vue'
 
-export default function useStorage<T>(key: string, defaultValue: T): Ref<T> {
+export function useStorage<T>(key: string, defaultValue: T): Ref<T> {
   const reportError = (operation: 'read' | 'write', error: unknown) => {
     console.error(`Unable to ${operation} localStorage value for "${key}".`, error)
   }

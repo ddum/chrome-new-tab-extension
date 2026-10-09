@@ -1,34 +1,34 @@
 ---
-description: Типы defineProps объявлять отдельно именованным interface, не инлайном
+description: Declare defineProps types as a named interface, not inline
 globs: "**/*.vue"
 alwaysApply: false
 ---
 
-# Типы defineProps
+# defineProps types
 
-Не передавайте объектный литерал типов прямо в `defineProps` / `withDefaults(defineProps<...>())`. Сначала объявите именованный `interface`, затем передайте его в макрос.
+Declare a named `interface` before passing it to `defineProps` or `withDefaults(defineProps<...>())`.
 
-Имя: `Props` или `<Component>Props`.
+Name it `Props` or `<Component>Props`.
 
-Результат макроса всегда присваивайте в `const props`.
+Always assign the macro result to `const props`.
 
 ```vue
 <script setup lang="ts">
 interface ButtonProps {
-  variant?: 'dark' | 'outline'
+  variant?: 'primary' | 'ghost'
   type?: 'button' | 'submit' | 'reset'
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  variant: 'dark',
+  variant: 'primary',
   type: 'button',
 })
 </script>
 ```
 
 ```ts
-// ❌ инлайн
+// ❌ inline
 const props = defineProps<{
-  variant?: 'dark'
+  variant?: 'primary'
 }>()
 ```

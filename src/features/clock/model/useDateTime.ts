@@ -2,23 +2,38 @@ import { computed, getCurrentScope, onScopeDispose, ref } from 'vue'
 
 import { DATE_LOCALE } from '@/shared/config/app'
 
-export default function useDateTime() {
+const MINUTE_MS = 60 * 1000
+
+function msUntilNextMinute(date: Date) {
+  return MINUTE_MS - (date.getSeconds() * 1000 + date.getMilliseconds())
+}
+
+export function useDateTime() {
   const now = ref(new Date())
 
-  const intervalId = setInterval(() => {
+  let intervalId: ReturnType<typeof setInterval> | undefined
+
+  const timeoutId = setTimeout(() => {
     now.value = new Date()
-  }, 1000 * 10)
+    intervalId = setInterval(() => {
+      now.value = new Date()
+    }, MINUTE_MS)
+  }, msUntilNextMinute(now.value))
 
   if (getCurrentScope()) {
     onScopeDispose(() => {
-      clearInterval(intervalId)
+      clearTimeout(timeoutId)
+      if (intervalId !== undefined) {
+        clearInterval(intervalId)
+      }
     })
   }
 
   const timeString = computed(() => {
-    const hours = now.value.getHours()
-    const minutes = now.value.getMinutes()
-    return `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}`
+    return now.value.toLocaleTimeString(DATE_LOCALE, {
+      hour: '2-digit',
+      minute: '2-digit',
+    })
   })
 
   const dateString = computed(() => {

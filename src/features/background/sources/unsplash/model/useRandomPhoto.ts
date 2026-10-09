@@ -1,12 +1,12 @@
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 
-import type { FetchRandomPhotoOptions } from '@/features/background/api/unsplash'
+import type { FetchRandomPhotoOptions } from '../api/fetchRandomPhoto'
 
-import { fetchRandomPhoto } from '@/features/background/api/unsplash'
+import { fetchRandomPhoto } from '../api/fetchRandomPhoto'
 
-export function useRandomBackground() {
-  const imgUrl = ref('')
-  const isLoading = ref(false)
+export function useRandomPhoto() {
+  const imgUrl = shallowRef('')
+  const isLoading = shallowRef(false)
 
   async function random(options: FetchRandomPhotoOptions = {}): Promise<void> {
     isLoading.value = true

@@ -3,7 +3,7 @@ import type { EffectScope } from 'vue'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { effectScope } from 'vue'
 
-import useDateTime from '../useDateTime'
+import { useDateTime } from '../useDateTime'
 
 const date = new Date(1988, 9, 3, 1, 2, 3)
 let scope: EffectScope
@@ -38,10 +38,34 @@ it('форматирует dateString', () => {
   expect(dateString.value).toBe('понедельник, 3 октября 1988 г.')
 })
 
-it('обновляет timeString', () => {
+it('не обновляет минуту до границы следующей минуты', () => {
+  vi.setSystemTime(new Date(1988, 9, 3, 1, 2, 55))
   const { timeString } = setupDateTime()
-  vi.advanceTimersByTime(1000 * 60)
+
+  vi.advanceTimersByTime(4_999)
+  expect(timeString.value).toBe('01:02')
+})
+
+it('обновляет timeString на границе минуты', () => {
+  vi.setSystemTime(new Date(1988, 9, 3, 1, 2, 55))
+  const { timeString } = setupDateTime()
+
+  vi.advanceTimersByTime(5_000)
   expect(timeString.value).toBe('01:03')
+})
+
+it('продолжает обновлять timeString каждую минуту', () => {
+  vi.setSystemTime(new Date(1988, 9, 3, 1, 2, 55))
+  const { timeString } = setupDateTime()
+
+  vi.advanceTimersByTime(5_000)
+  expect(timeString.value).toBe('01:03')
+
+  vi.advanceTimersByTime(59_999)
+  expect(timeString.value).toBe('01:03')
+
+  vi.advanceTimersByTime(1)
+  expect(timeString.value).toBe('01:04')
 })
 
 it('обновляет dateString', () => {
@@ -51,12 +75,26 @@ it('обновляет dateString', () => {
 })
 
 it('перестаёт обновляться после dispose владельца', () => {
+  vi.setSystemTime(new Date(1988, 9, 3, 1, 2, 55))
   const { timeString } = setupDateTime()
   const frozen = timeString.value
 
   scope.stop()
   vi.setSystemTime(new Date(2000, 0, 1, 12, 0, 0))
-  vi.advanceTimersByTime(1000 * 10)
+  vi.advanceTimersByTime(5_000)
+
+  expect(timeString.value).toBe(frozen)
+})
+
+it('не тикает по интервалу после dispose', () => {
+  vi.setSystemTime(new Date(1988, 9, 3, 1, 2, 55))
+  const { timeString } = setupDateTime()
+  vi.advanceTimersByTime(5_000)
+  scope.stop()
+
+  const frozen = timeString.value
+  vi.setSystemTime(new Date(2000, 0, 1, 12, 0, 0))
+  vi.advanceTimersByTime(60_000)
 
   expect(timeString.value).toBe(frozen)
 })

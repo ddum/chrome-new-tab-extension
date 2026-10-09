@@ -21,41 +21,37 @@ describe('backgroundStore', () => {
     expect(backgroundStore.url).toBe('test')
   })
 
-  it('устанавливает теги', () => {
+  it('по умолчанию активен Unsplash с пустыми настройками', () => {
     const backgroundStore = useBackgroundStore()
-    expect(backgroundStore.tags).toEqual([])
-    backgroundStore.setTags(['a'])
-    expect(backgroundStore.tags).toEqual(['a'])
-    backgroundStore.setTags(['a', 'b'])
-    expect(backgroundStore.tags).toEqual(['a', 'b'])
+    expect(backgroundStore.source).toBe('unsplash')
+    expect(backgroundStore.sources.unsplash).toEqual({ tags: [], accessKey: '' })
   })
 
-  it('сохраняет accessKey', () => {
+  it('сохраняет настройки источника в snapshot', () => {
     const backgroundStore = useBackgroundStore()
-    backgroundStore.setAccessKey('test-access-key')
-    expect(backgroundStore.accessKey).toBe('test-access-key')
+    backgroundStore.setSourceSettings('unsplash', { tags: ['a'], accessKey: 'test-access-key' })
+
+    expect(backgroundStore.sources.unsplash).toEqual({ tags: ['a'], accessKey: 'test-access-key' })
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!).background.sources.unsplash)
+      .toEqual({ tags: ['a'], accessKey: 'test-access-key' })
   })
 
-  it('сбрасывает accessKey пустой строкой', () => {
+  it('восстанавливает отсутствующую секцию после изменения в другой вкладке', () => {
     const backgroundStore = useBackgroundStore()
-    backgroundStore.setAccessKey('test-access-key')
-    backgroundStore.setAccessKey('')
-    expect(backgroundStore.accessKey).toBe('')
-  })
+    backgroundStore.setUrl('test')
 
-  it('читает пустой accessKey из старого snapshot без поля', () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      background: {
-        url: '',
-        tags: [],
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ links: { items: [] } }))
+    window.dispatchEvent(new StorageEvent('storage', { key: STORAGE_KEY }))
+
+    expect(backgroundStore.url).toBe('')
+    expect(backgroundStore.source).toBe('unsplash')
+    expect(backgroundStore.sources.unsplash).toEqual({ tags: [], accessKey: '' })
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!).background).toEqual({
+      url: '',
+      source: 'unsplash',
+      sources: {
+        unsplash: { tags: [], accessKey: '' },
       },
-      links: {
-        items: [],
-      },
-    }))
-    setActivePinia(createPinia())
-
-    const backgroundStore = useBackgroundStore()
-    expect(backgroundStore.accessKey).toBe('')
+    })
   })
 })

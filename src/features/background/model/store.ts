@@ -1,33 +1,43 @@
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
 
-import { useAppSnapshot } from '@/shared/lib/useAppSnapshot'
+import { useSnapshotSection } from '@/shared/model/app-snapshot/useAppSnapshot'
+
+import type { BackgroundSourceId, BackgroundSourceSettings, BackgroundValue } from './types'
+
+import { UNSPLASH_DEFAULT_SETTINGS } from '../sources/unsplash'
+
+const DEFAULT_VALUE: BackgroundValue = {
+  url: '',
+  source: 'unsplash',
+  sources: {
+    unsplash: UNSPLASH_DEFAULT_SETTINGS,
+  },
+}
 
 export const useBackgroundStore = defineStore('background', () => {
-  const appValue = useAppSnapshot()
+  const background = useSnapshotSection('background', DEFAULT_VALUE)
 
-  const url = computed(() => appValue.value.background.url)
-  const tags = computed(() => appValue.value.background.tags)
-  const accessKey = computed(() => appValue.value.background.accessKey ?? '')
+  const url = computed(() => background.value.url)
+  const source = computed(() => background.value.source)
+  const sources = computed(() => background.value.sources)
 
   function setUrl(value: string) {
-    appValue.value.background.url = value
+    background.value.url = value
   }
 
-  function setAccessKey(value: string) {
-    appValue.value.background.accessKey = value
-  }
-
-  function setTags(value: string[]) {
-    appValue.value.background.tags = value
+  function setSourceSettings<Id extends BackgroundSourceId>(
+    id: Id,
+    value: BackgroundSourceSettings[Id],
+  ) {
+    background.value.sources[id] = value
   }
 
   return {
     url,
-    tags,
-    accessKey,
+    source,
+    sources,
     setUrl,
-    setAccessKey,
-    setTags,
+    setSourceSettings,
   }
 })

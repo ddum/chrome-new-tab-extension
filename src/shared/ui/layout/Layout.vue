@@ -5,7 +5,15 @@ interface LayoutProps {
   imageUrl?: string
 }
 
+interface LayoutSlots {
+  'center': () => unknown
+  'header-left': () => unknown
+  'footer-left': () => unknown
+}
+
 const props = defineProps<LayoutProps>()
+
+const slots = defineSlots<LayoutSlots>()
 
 const layoutStyle = computed(() => ({
   '--layout-image': props.imageUrl ? `url(${props.imageUrl})` : 'none',
@@ -15,15 +23,46 @@ const layoutStyle = computed(() => ({
 <template>
   <div
     data-slot="layout"
-    class="relative isolate size-full overflow-hidden bg-cover bg-center bg-no-repeat"
+    class="layout relative isolate size-full overflow-hidden bg-cover bg-center bg-no-repeat"
     :style="layoutStyle"
   >
-    <slot />
+    <div
+      v-if="slots.center"
+      data-slot="layout-center"
+      class="
+        pointer-events-none absolute inset-0 z-10 flex flex-col
+        items-center justify-center select-none
+      "
+    >
+      <slot name="center" />
+    </div>
+
+    <div
+      v-if="slots['header-left']"
+      data-slot="layout-header"
+      class="absolute top-3 right-3 left-3 z-10 flex items-center justify-between"
+    >
+      <div
+        v-if="slots['header-left']"
+        data-slot="layout-header-left"
+        class="flex flex-1 items-center justify-start"
+      >
+        <slot name="header-left" />
+      </div>
+    </div>
+
+    <div
+      v-if="slots['footer-left']"
+      data-slot="layout-footer"
+      class="absolute right-3 bottom-3 left-3 z-10 flex items-center justify-start"
+    >
+      <slot name="footer-left" />
+    </div>
   </div>
 </template>
 
 <style scoped>
-[data-slot='layout'] {
+.layout {
   --vignette-26: rgb(0 0 0 / 26%);
   --vignette-24: rgb(0 0 0 / 24%);
   --vignette-19: rgb(0 0 0 / 19%);
@@ -35,7 +74,7 @@ const layoutStyle = computed(() => ({
   background-image: var(--layout-image, none);
 }
 
-[data-slot='layout']::after {
+.layout::after {
   content: '';
   pointer-events: none;
   position: absolute;

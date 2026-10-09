@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 
 import { Field } from '@/shared/ui/field'
 import { Input } from '@/shared/ui/input'
-
-import Tag from './Tag.vue'
+import { Tag } from '@/shared/ui/tag'
 
 const tags = defineModel<string[]>({ default: () => [] })
-const draft = ref('')
+const draft = shallowRef('')
 
 function addTag() {
   const value = draft.value.trim()

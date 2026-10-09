@@ -1,0 +1,40 @@
+---
+description: Pass event values as explicit callback arguments; do not use $event in templates
+globs: "**/*.vue"
+alwaysApply: false
+---
+
+# Event callbacks in templates
+
+Pass the event value as an explicit argument.
+
+When the handler already accepts that value, bind the function:
+
+```vue
+<SearchField @update:model-value="setQuery" />
+```
+
+When the call needs a wrapper, name the argument in the callback:
+
+```vue
+<ProductCard @select="(id) => emit('select', id)" />
+```
+
+```vue
+<!-- ❌ $event -->
+<ProductCard @select="emit('select', $event)" />
+```
+
+When an inline callback on a dynamic component would be implicitly `any`, declare a typed function and bind it:
+
+```vue
+<script setup lang="ts">
+function onSelect(id: string) {
+  emit('select', id)
+}
+</script>
+
+<template>
+  <component :is="panel" @select="onSelect" />
+</template>
+```

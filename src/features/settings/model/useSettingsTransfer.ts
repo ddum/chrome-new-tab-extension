@@ -1,5 +1,5 @@
 import { useSettingsBackup } from '@/features/settings/model/backup'
-import useFileSystem from '@/shared/lib/useFileSystem'
+import { useFileSystem } from '@/shared/lib/useFileSystem'
 
 const SETTINGS_FILE_TYPES: FilePickerAcceptType[] = [
   {

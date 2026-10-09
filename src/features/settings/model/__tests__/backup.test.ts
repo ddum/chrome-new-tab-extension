@@ -21,7 +21,10 @@ describe('резервное копирование настроек', () => {
     const value = {
       background: {
         url: 'test',
-        tags: ['a', 'b'],
+        source: 'unsplash',
+        sources: {
+          unsplash: { tags: ['a', 'b'], accessKey: '' },
+        },
       },
       links: {
         items: [],
@@ -43,12 +46,15 @@ describe('резервное копирование настроек', () => {
     backup.fromJson(JSON.stringify({
       background: {
         url: 'new-url',
-        tags: ['x'],
+        source: 'unsplash',
+        sources: {
+          unsplash: { tags: ['x'], accessKey: '' },
+        },
       },
     }))
 
     expect(backgroundStore.url).toBe('new-url')
-    expect(backgroundStore.tags).toEqual(['x'])
+    expect(backgroundStore.sources.unsplash.tags).toEqual(['x'])
     expect(linksStore.items).toEqual([{ url: 'url', title: 'title' }])
   })
 })

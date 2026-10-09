@@ -2,7 +2,7 @@ import { afterEach, expect, it, vi } from 'vitest'
 
 import { UNSPLASH_API_ORIGIN } from '@/shared/config/app'
 
-import { fetchRandomPhoto } from '../unsplash'
+import { fetchRandomPhoto } from '../fetchRandomPhoto'
 
 function stubImagePreload() {
   class MockImage {
@@ -28,7 +28,7 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-it('fetchRandomPhoto запрашивает случайное фото Unsplash и возвращает предзагруженный url', async () => {
+it('запрашивает случайное фото Unsplash и возвращает предзагруженный url', async () => {
   stubImagePreload()
   const rawUrl = 'https://images.unsplash.com/photo-test'
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
@@ -51,14 +51,27 @@ it('fetchRandomPhoto запрашивает случайное фото Unsplash
   expect(url).toContain('h=200')
 })
 
-it('fetchRandomPhoto возвращает пустую строку и не вызывает fetch без ключа', async () => {
+it('возвращает пустую строку и не вызывает fetch без ключа', async () => {
   vi.stubGlobal('fetch', vi.fn())
   expect(await fetchRandomPhoto()).toBe('')
   expect(await fetchRandomPhoto({ accessKey: '' })).toBe('')
   expect(fetch).not.toHaveBeenCalled()
 })
 
-it('fetchRandomPhoto возвращает пустую строку, если ответ не 200', async () => {
+it('возвращает пустую строку, если ответ не 200', async () => {
   vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ status: 404 }))
   expect(await fetchRandomPhoto({ accessKey: 'test-access-key' })).toBe('')
+})
+
+it('возвращает пустую строку, если в ответе нет urls.raw', async () => {
+  const fetchMock = vi.fn()
+  vi.stubGlobal('fetch', fetchMock)
+
+  for (const body of [{}, { urls: {} }, { urls: { raw: 1 } }, null]) {
+    fetchMock.mockResolvedValue({
+      status: 200,
+      json: async () => body,
+    })
+    expect(await fetchRandomPhoto({ accessKey: 'test-access-key' })).toBe('')
+  }
 })

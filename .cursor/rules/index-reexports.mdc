@@ -1,0 +1,27 @@
+---
+description: Declare constants in a separate file and only re-export them from index.ts
+alwaysApply: true
+---
+
+# Constants outside index.ts
+
+Declare a constant in its own file. Re-export it from `index.ts`.
+
+```ts
+// catalog/constants.ts
+export const PRODUCT_CATEGORIES: Record<CategoryId, Category> = {
+  books: booksCategory,
+}
+```
+
+```ts
+// catalog/index.ts
+export { PRODUCT_CATEGORIES } from './constants'
+```
+
+```ts
+// ❌ declaring the constant in index.ts
+export const PRODUCT_CATEGORIES = {
+  books: booksCategory,
+}
+```

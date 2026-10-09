@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import useDateTime from '@/features/clock/model/useDateTime'
+import { useDateTime } from '@/features/clock/model/useDateTime'
 
 const { timeString, dateString } = useDateTime()
 </script>
