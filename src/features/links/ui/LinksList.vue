@@ -21,7 +21,10 @@ const props = defineProps<Props>()
         hover:bg-on-image/20 focus-visible:bg-on-image/20 focus-visible:outline-none
       "
     >
-      <LinkFavicon :domain="link.url" />
+      <LinkFavicon
+        :domain="link.url"
+        variant="overlay"
+      />
       <span class="text-sm font-medium text-on-image drop-shadow">
         {{ link.title }}
       </span>

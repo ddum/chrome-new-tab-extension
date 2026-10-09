@@ -3,6 +3,7 @@
   "name": "NewTab",
   "description": "Chrome New Tab",
   "version": "1.0.1",
+  "permissions": ["favicon"],
   "icons": {
     "192": "img/icons/192x192.png"
   },
