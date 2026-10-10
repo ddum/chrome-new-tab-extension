@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { expect, it } from 'vitest'
 
-import UnsplashAccessKeyField from '../UnsplashAccessKeyField.vue'
+import { UnsplashAccessKeyField } from '..'
 
 it('рендерит поле ввода ключа', () => {
   const wrapper = mount(UnsplashAccessKeyField, {

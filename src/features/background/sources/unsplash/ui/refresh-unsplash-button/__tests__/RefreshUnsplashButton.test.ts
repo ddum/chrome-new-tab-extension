@@ -1,10 +1,10 @@
 import { flushPromises, mount } from '@vue/test-utils'
 import { afterEach, expect, it, vi } from 'vitest'
 
-import { fetchRandomPhoto } from '../../api/fetchRandomPhoto'
-import RefreshUnsplashButton from '../RefreshUnsplashButton.vue'
+import { RefreshUnsplashButton } from '..'
+import { fetchRandomPhoto } from '../../../api/fetchRandomPhoto'
 
-vi.mock('../../api/fetchRandomPhoto', () => ({
+vi.mock('../../../api/fetchRandomPhoto', () => ({
   fetchRandomPhoto: vi.fn(),
 }))
 

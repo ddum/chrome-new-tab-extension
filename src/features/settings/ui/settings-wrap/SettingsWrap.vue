@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 
 import { useSettingsTabs } from '@/features/settings/model/useSettingsTabs'
-import SettingsMenu from '@/features/settings/ui/SettingsMenu.vue'
-import SettingsTransfer from '@/features/settings/ui/SettingsTransfer.vue'
+import { SettingsMenu } from '@/features/settings/ui/settings-menu'
+import { SettingsTransfer } from '@/features/settings/ui/settings-transfer'
 import { Tabs, TabsContent } from '@/shared/ui/tabs'
 
 const tabs = useSettingsTabs()

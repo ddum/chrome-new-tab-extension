@@ -1,6 +1,6 @@
 import type { BackgroundSource } from '../types'
 
-import SettingsUnsplash from './ui/SettingsUnsplash.vue'
+import { SettingsUnsplash } from './ui/settings-unsplash'
 
 export const unsplashSource: BackgroundSource = {
   id: 'unsplash',

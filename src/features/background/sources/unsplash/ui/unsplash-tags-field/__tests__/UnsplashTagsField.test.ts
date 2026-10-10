@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { expect, it } from 'vitest'
 
-import UnsplashTagsField from '../UnsplashTagsField.vue'
+import { UnsplashTagsField } from '..'
 
 it('рендерит поле ввода тегов', () => {
   const wrapper = mount(UnsplashTagsField, {

@@ -7,7 +7,7 @@ import type { SettingsTab } from '@/features/settings/model/types'
 
 import { provideSettingsTabs } from '@/features/settings/model/useSettingsTabs'
 
-import SettingsWrap from '../SettingsWrap.vue'
+import { SettingsWrap } from '..'
 
 const tabs: SettingsTab[] = [
   {

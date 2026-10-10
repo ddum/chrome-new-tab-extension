@@ -3,7 +3,7 @@ import { RefreshCw } from '@lucide/vue'
 
 import { Button } from '@/shared/ui/button'
 
-import { useRandomPhoto } from '../model/useRandomPhoto'
+import { useRandomPhoto } from '../../model/useRandomPhoto'
 
 interface RefreshUnsplashButtonProps {
   accessKey: string

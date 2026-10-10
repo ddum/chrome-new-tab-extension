@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { expect } from 'vitest'
 
-import TimeString from '../TimeString.vue'
+import { TimeString } from '..'
 
 it('timeString - рендер', () => {
   const wrapper = mount(TimeString)

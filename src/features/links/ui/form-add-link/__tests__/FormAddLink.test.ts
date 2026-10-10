@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { expect } from 'vitest'
 
-import FormAddLink from '../FormAddLink.vue'
+import { FormAddLink } from '..'
 
 it('formAddLink рендер формы', async () => {
   const wrapper = mount(FormAddLink)

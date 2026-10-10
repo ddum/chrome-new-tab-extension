@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { SETTINGS_TABS } from '@/app/settings-tabs'
 import { useBackgroundStore } from '@/features/background/model/store'
-import TimeString from '@/features/clock/ui/TimeString.vue'
+import { TimeString } from '@/features/clock/ui/time-string'
 import { useLinksStore } from '@/features/links/model/store'
 import { LinksList } from '@/features/links/ui/links-list'
 import { provideSettingsTabs } from '@/features/settings/model/useSettingsTabs'
-import SettingsButton from '@/features/settings/ui/SettingsButton.vue'
+import { SettingsButton } from '@/features/settings/ui/settings-button'
 import { Layout } from '@/shared/ui/layout'
 
 const backgroundStore = useBackgroundStore()

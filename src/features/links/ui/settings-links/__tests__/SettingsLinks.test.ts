@@ -6,7 +6,7 @@ import { nextTick } from 'vue'
 
 import { useLinksStore } from '@/features/links/model/store'
 
-import SettingsLinks from '../SettingsLinks.vue'
+import { SettingsLinks } from '..'
 
 beforeEach(() => {
   localStorage.clear()

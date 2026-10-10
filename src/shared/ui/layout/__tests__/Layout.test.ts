@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { expect, it } from 'vitest'
 
-import Layout from '../Layout.vue'
+import { Layout } from '..'
 
 it('показывает содержимое переданных областей', () => {
   const wrapper = mount(Layout, {

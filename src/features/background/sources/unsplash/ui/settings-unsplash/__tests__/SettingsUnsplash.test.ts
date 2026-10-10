@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils'
 import { expect, it } from 'vitest'
 
-import RefreshUnsplashButton from '../RefreshUnsplashButton.vue'
-import SettingsUnsplash from '../SettingsUnsplash.vue'
-import UnsplashAccessKeyField from '../UnsplashAccessKeyField.vue'
-import UnsplashTagsField from '../UnsplashTagsField.vue'
+import { SettingsUnsplash } from '..'
+import { RefreshUnsplashButton } from '../../refresh-unsplash-button'
+import { UnsplashAccessKeyField } from '../../unsplash-access-key-field'
+import { UnsplashTagsField } from '../../unsplash-tags-field'
 
 const settings = { tags: ['nature'], accessKey: 'test-access-key' }
 

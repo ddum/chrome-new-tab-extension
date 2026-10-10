@@ -6,7 +6,7 @@ import type { SettingsTab } from '@/features/settings/model/types'
 
 import { Tabs } from '@/shared/ui/tabs'
 
-import SettingsMenu from '../SettingsMenu.vue'
+import { SettingsMenu } from '..'
 
 const tabs: SettingsTab[] = [
   { code: 'background', title: 'Фон', component: { template: '<div />' } },

@@ -2,7 +2,7 @@
 import { Settings } from '@lucide/vue'
 import { ref } from 'vue'
 
-import SettingsWrap from '@/features/settings/ui/SettingsWrap.vue'
+import { SettingsWrap } from '@/features/settings/ui/settings-wrap'
 import { Button } from '@/shared/ui/button'
 import { Popover } from '@/shared/ui/popover'
 

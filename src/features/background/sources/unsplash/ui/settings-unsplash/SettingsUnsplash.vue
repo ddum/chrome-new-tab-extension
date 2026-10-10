@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { UnsplashSettings } from '../settings'
+import type { UnsplashSettings } from '../../settings'
 
-import RefreshUnsplashButton from './RefreshUnsplashButton.vue'
-import UnsplashAccessKeyField from './UnsplashAccessKeyField.vue'
-import UnsplashTagsField from './UnsplashTagsField.vue'
+import { RefreshUnsplashButton } from '../refresh-unsplash-button'
+import { UnsplashAccessKeyField } from '../unsplash-access-key-field'
+import { UnsplashTagsField } from '../unsplash-tags-field'
 
 const emit = defineEmits<{
   apply: [url: string]

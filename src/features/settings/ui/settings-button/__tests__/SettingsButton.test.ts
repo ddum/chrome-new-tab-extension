@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import { afterEach, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 
-import SettingsButton from '../SettingsButton.vue'
+import { SettingsButton } from '..'
 
 afterEach(() => {
   document.body.innerHTML = ''

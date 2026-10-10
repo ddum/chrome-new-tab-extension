@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { expect } from 'vitest'
 
-import LinksList from '../LinksList.vue'
+import { LinksList } from '..'
 
 it('рендер пустого LinksList', () => {
   const wrapper = mount(LinksList, {

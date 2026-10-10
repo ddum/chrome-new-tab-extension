@@ -6,7 +6,7 @@ import { nextTick } from 'vue'
 import { useBackgroundStore } from '@/features/background/model/store'
 import { unsplashSource } from '@/features/background/sources/unsplash'
 
-import SettingsBackground from '../SettingsBackground.vue'
+import { SettingsBackground } from '..'
 
 const SettingsUnsplash = unsplashSource.component
 

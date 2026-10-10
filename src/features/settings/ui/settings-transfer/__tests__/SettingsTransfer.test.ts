@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { beforeEach, expect, it, vi } from 'vitest'
 
-import SettingsTransfer from '../SettingsTransfer.vue'
+import { SettingsTransfer } from '..'
 
 const transferMocks = vi.hoisted(() => ({
   importSettings: vi.fn(),
