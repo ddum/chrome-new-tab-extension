@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^2.0.1",
+    "@formkit/drag-and-drop": "^0.6.1",
     "@lucide/vue": "^1.31.0",
     "pinia": "^4.0.3",
     "tailwind-variants": "^3.3.1",

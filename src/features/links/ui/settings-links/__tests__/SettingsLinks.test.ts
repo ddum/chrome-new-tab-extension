@@ -43,5 +43,6 @@ it('рендер SettingsLinks', async () => {
   await nextTick()
   const items = wrapper.findAll('li')
   expect(items.map(item => item.text().trim())).toEqual(['title', 'title1'])
+  expect(wrapper.findAll('button[aria-label="Переместить"]')).toHaveLength(2)
   expect(wrapper.findAll('button[aria-label="Удалить"]')).toHaveLength(2)
 })

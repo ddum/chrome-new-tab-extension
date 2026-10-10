@@ -39,6 +39,23 @@ describe('linksStore', () => {
     expect(linksStore.items).toEqual([{ url: 'url', title: 'title' }])
   })
 
+  it('меняет порядок ссылок', () => {
+    const linksStore = useLinksStore()
+    linksStore.addLink('url', 'title')
+    linksStore.addLink('url1', 'title1')
+    linksStore.addLink('url2', 'title2')
+    linksStore.reorderLinks([
+      { url: 'url2', title: 'title2' },
+      { url: 'url', title: 'title' },
+      { url: 'url1', title: 'title1' },
+    ])
+    expect(linksStore.items).toEqual([
+      { url: 'url2', title: 'title2' },
+      { url: 'url', title: 'title' },
+      { url: 'url1', title: 'title1' },
+    ])
+  })
+
   it('удаляет ссылку', () => {
     const linksStore = useLinksStore()
     linksStore.addLink('url', 'title')

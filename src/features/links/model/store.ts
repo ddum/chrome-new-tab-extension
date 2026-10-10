@@ -30,9 +30,14 @@ export const useLinksStore = defineStore('links', () => {
     links.value.items = links.value.items.filter(link => link.url !== url)
   }
 
+  function reorderLinks(next: LinksValue['items']) {
+    links.value.items = next
+  }
+
   return {
     items,
     addLink,
     deleteLink,
+    reorderLinks,
   }
 })

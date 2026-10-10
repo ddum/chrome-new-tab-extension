@@ -64,7 +64,7 @@ A background source is a self-contained UI module in `features/background/source
 | Flow | Path | Rule |
 | --- | --- | --- |
 | Time display | `features/clock/ui/TimeString.vue` → `useDateTime.ts` | Time shows hours and minutes. Time and date are formatted for `ru-RU`. |
-| Link management | `SettingsLinks.vue` → `FormAddLink` / delete → `useLinksStore`; `LinksList.vue` reads `items` | Empty URL or title and duplicate URLs are ignored; deleting a URL removes matching entries. |
+| Link management | `SettingsLinks.vue` → `FormAddLink` / delete / reorder → `useLinksStore`; `LinksList.vue` reads `items` | Empty URL or title and duplicate URLs are ignored; deleting a URL removes matching entries. The settings list order is the order on the new tab. |
 | Unsplash tags | `SettingsUnsplash` → `UnsplashTagsField` → `v-model` → `useBackgroundStore.setSourceSettings` | Empty and duplicate tags are ignored. |
 | Unsplash access key | `SettingsUnsplash` → `UnsplashAccessKeyField` → `v-model` → `useBackgroundStore.setSourceSettings` | The key is persisted in `background.sources.unsplash.accessKey`; an empty value clears it. |
 | Unsplash refresh | `RefreshUnsplashButton.vue` → `model/useRandomPhoto` → `api/fetchRandomPhoto.ts` → `apply(url)` → `useBackgroundStore.setUrl` | The access key is passed to Unsplash as `client_id`. A fetch is skipped when the key is empty. A fetched image is preloaded before `apply` is emitted. |
